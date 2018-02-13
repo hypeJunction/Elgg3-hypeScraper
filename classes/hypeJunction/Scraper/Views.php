@@ -217,9 +217,12 @@ class Views {
 			return self::$domains;
 		}
 
-		$normalize = function($domain) {
-			$domain = trim($domain);
-			$domain = parse_url($domain, PHP_URL_HOST);
+		$normalize = function($url) {
+			$url = trim($url);
+			$domain = parse_url($url, PHP_URL_HOST);
+			if (!$domain) {
+				$domain = $url;
+			}
 			$domain = str_replace('www.', '', $domain);
 			return $domain;
 		};

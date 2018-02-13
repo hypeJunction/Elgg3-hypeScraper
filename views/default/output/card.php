@@ -21,23 +21,24 @@ if (!$icon_url) {
 }
 
 $module = elgg_extract('module', $vars, 'scraper-card');
-$classes = array(elgg_extract('class', $vars));
+$classes = [elgg_extract('class', $vars)];
 
 $classes[] = 'scraper-card-block';
 $classes[] = 'clearfix';
 
 if ($meta->provider_name) {
-	$classes[] = 'scraper-card-' . preg_replace('/[^a-z0-9\-]/i', '-', strtolower($meta->provider_name));
+	$provider = strtolower($meta->provider_name);
+	$classes[] = 'scraper-card-' . preg_replace('/[^a-z0-9\-]/i', '-', $provider);
 }
 
 if (($meta->type == 'image' || $meta->type == 'photo') && $icon_url) {
 	$vars['src'] = $icon_url;
 	$vars['class'] = 'sraper-card-photo';
 	$img = elgg_view('output/img', $vars);
-	$body = elgg_view('output/url', array(
+	$body = elgg_view('output/url', [
 		'href' => $href,
 		'text' => $img,
-	));
+	]);
 } else {
 	$body .= elgg_view_menu('scraper:card', [
 		'href' => $href,
@@ -51,46 +52,46 @@ if (($meta->type == 'image' || $meta->type == 'photo') && $icon_url) {
 	]);
 	
 	$body .= '<h3>' . $title . '</h3>';
-	$body .= elgg_view('output/url', array(
+	$body .= elgg_view('output/url', [
 		'text' => parse_url($meta->url, PHP_URL_HOST),
 		'href' => $meta->url,
 		'class' => 'scraper-card-link',
-	));
-	$body .= elgg_view('output/longtext', array(
+	]);
+	$body .= elgg_view('output/longtext', [
 		'value' => elgg_get_excerpt($meta->description),
 		'class' => 'scraper-card-description'
-	));
+	]);
 
 	if ($icon_url) {
 		$classes[] = 'scraper-card-has-icon';
-		$icon = elgg_view('output/url', array(
+		$icon = elgg_view('output/url', [
 			'class' => 'scraper-card-icon-bg',
 			'text' => '<span></span>',
 			'style' => 'background-image:url(' . $icon_url . ')',
 			'href' => $meta->url
-		));
+		]);
 	}
 
 	if ($meta->html && ($meta->type == 'rich' || $meta->type == 'video')) {
 		$icon .= elgg_format_element('div', [
 			'class' => 'scraper-play-button',
-			'data-href' => elgg_http_add_url_query_elements(elgg_normalize_url('scraper/json'), array(
+			'data-href' => elgg_http_get_signed_url(elgg_http_add_url_query_elements('scraper', [
+				'view' => 'json',
 				'url' => $href,
-				'm' => elgg_build_hmac($href)->getToken(),
-			)),
+			])),
 		], elgg_view_icon('play'));
 	}
 }
 
-$body = elgg_view_image_block($icon, $body, array(
+$body = elgg_view_image_block($icon, $body, [
 	'class' => implode(' ', array_filter($classes))
-));
+]);
 
 if ($module) {
 	$class = ($meta->type) ? " scraper-card-content-$meta->type" : '';
-	echo elgg_view_module($module, false, $body, array(
+	echo elgg_view_module($module, false, $body, [
 		'class' => $class,
-	));
+	]);
 } else {
 	echo $body;
 }

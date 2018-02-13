@@ -29,12 +29,12 @@ class Extractor {
 	 * @return array
 	 */
 	public static function all($text = '') {
-		return array(
+		return [
 			'urls' => self::urls($text) ? : [],
 			'hashtags' =>  self::hashtags($text) ? : [],
 			'emails' => self::emails($text) ? : [],
 			'usernames' => self::usernames($text) ? : [],
-		);
+		];
 	}
 
 	/**
@@ -58,7 +58,7 @@ class Extractor {
 	 * @return array
 	 */
 	public static function urls($text = '') {
-		$matches = array();
+		$matches = [];
 		$regex = '/' . self::REGEX_MATCH_TAG . '|' . self::REGEX_CHAR_BACK  . self::REGEX_URL . '/i';
 		preg_match_all($regex, $text, $matches);
 		$results = array_filter($matches[2]);
@@ -86,7 +86,7 @@ class Extractor {
 	 * @return array
 	 */
 	public static function emails($text = '') {
-		$matches = array();
+		$matches = [];
 		$regex = '/' . self::REGEX_MATCH_TAG . '|' . self::REGEX_CHAR_BACK  . self::REGEX_EMAIL . '/i';
 		preg_match_all($regex, $text, $matches);
 		$results = array_filter($matches[2]);

@@ -1,12 +1,16 @@
 <?php
 
-$href = elgg_extract('href', $vars);
-$iframe = elgg_extract('iframe', $vars) || elgg_is_xhr();
+elgg_signed_request_gatekeeper();
+
+$url = get_input('url');
+
+$iframe = get_input('iframe', false) || elgg_is_xhr();
 
 $data = hypeapps_scrape($url);
 if (!$data) {
-	return;
+	throw new \Elgg\PageNotFoundException();
 }
+
 $title = $data['title'];
 
 if ($iframe) {
@@ -33,5 +37,5 @@ if ($iframe) {
 	]);
 }
 
-$shell = ($iframe) ? 'iframe' : 'default';
+$shell = ($iframe) ? 'iframe' : 'default';el
 echo elgg_view_page($title, $layout, $shell);

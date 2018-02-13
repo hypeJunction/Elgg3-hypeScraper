@@ -4,7 +4,7 @@
  * View that can be used to linkify URLs, hashtags, usernames and emails
  * This can be used as an alternative to output/longtext, if you don't need
  * all the tag filtering and paragraphs
- * 
+ *
  * @uses $vars['value']           STR  Text to linkify
  * @uses $vars['parse_urls']      BOOL Disable URL linkification
  * @uses $vars['parse_hashtags']  BOOL Disable hashtag linkification

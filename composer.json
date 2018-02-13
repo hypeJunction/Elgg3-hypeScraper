@@ -6,7 +6,7 @@
 	"keywords": [
 		"elgg", "plugin", "extract", "embed"
 	],
-	"license": "GPL-2.0",
+	"license": "GPL-2.0-only",
 	"authors": [
 		{
 			"name": "Ismayil Khayredinov",
@@ -19,8 +19,7 @@
 	"require": {
 		"php": ">=5.5",
 		"composer/installers": "~1.0",
-		"hypejunction/http-parser": "dev-master",
-		"fire015/flintstone": "^2.0"
+		"hypejunction/http-parser": "dev-master"
 	},
 	"autoload": {
 		"psr-0": {

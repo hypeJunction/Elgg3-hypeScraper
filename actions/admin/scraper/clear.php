@@ -5,7 +5,7 @@ if (!$domain) {
 	return elgg_ok_response();
 }
 
-$svc = \hypeJunction\Scraper\ScraperService::getInstance();
+$svc = elgg()->scraper;
 $urls = $svc->find($domain);
 
 foreach ($urls as $url) {

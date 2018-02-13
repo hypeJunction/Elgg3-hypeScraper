@@ -9,21 +9,12 @@
  * @return array|false
  */
 function hypeapps_scrape($url, $cache_only = false, $flush = false) {
-	if (!filter_var($url, FILTER_VALIDATE_URL)) {
-		return false;
-	}
-	
-	$svc = hypeJunction\Scraper\ScraperService::getInstance();
-	if ($cache_only) {
-		return $svc->get($url);
-	}
-	
-	return $svc->parse($url, $flush);
+	return elgg()->scraper->scrape($url, $cache_only, $flush);
 }
 
 /**
  * Extract URLs, emails, hashtags and usernames form text
- * 
+ *
  * @param string $text Source text
  * @return array
  */

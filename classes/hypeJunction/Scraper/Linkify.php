@@ -27,12 +27,12 @@ class Linkify extends Extractor {
 	
 	/**
 	 * Linkifies all qualifiers
-	 * 
+	 *
 	 * @param string $text Source text
 	 * @return string
 	 */
 	public static function all($text = '') {
-		$text = html_entity_decode($text);
+		$text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
 		$text = self::emails($text);
 		$text = self::usernames($text);
 		$text = self::hashtags($text);
@@ -48,7 +48,7 @@ class Linkify extends Extractor {
 	 * @return string
 	 */
 	public static function hashtags($text = '', callable $callback = null) {
-		$callback = $callback ? : array(__CLASS__, 'callbackHashtag');
+		$callback = $callback ? : [__CLASS__, 'callbackHashtag'];
 		$regex = '/' . self::REGEX_MATCH_ANCHOR . '|' . self::REGEX_MATCH_TAG . '|' . self::REGEX_CHAR_BACK . self::REGEX_HASHTAG . '/i';
 		return preg_replace_callback($regex, $callback, $text);
 	}
@@ -61,7 +61,7 @@ class Linkify extends Extractor {
 	 * @return string
 	 */
 	public static function urls($text = '', callable $callback = null) {
-		$callback = $callback ?: array(__CLASS__, 'callbackUrl');
+		$callback = $callback ?: [__CLASS__, 'callbackUrl'];
 		$regex = '/' . self::REGEX_MATCH_ANCHOR . '|' . self::REGEX_MATCH_TAG . '|' . self::REGEX_CHAR_BACK . self::REGEX_URL . '/i';
 		return preg_replace_callback($regex, $callback, $text);
 	}
@@ -74,7 +74,7 @@ class Linkify extends Extractor {
 	 * @return string
 	 */
 	public static function usernames($text = '', callable $callback = null) {
-		$callback = $callback ?: array(__CLASS__, 'callbackUsername');
+		$callback = $callback ?: [__CLASS__, 'callbackUsername'];
 		$regex = '/' . self::REGEX_MATCH_ANCHOR . '|' . self::REGEX_MATCH_TAG . '|' . self::REGEX_CHAR_BACK . self::REGEX_USERNAME . '/i';
 		return preg_replace_callback($regex, $callback, $text);
 	}
@@ -87,7 +87,7 @@ class Linkify extends Extractor {
 	 * @return string
 	 */
 	public static function emails($text = '', callable $callback = null) {
-		$callback = $callback ?: array(__CLASS__, 'callbackEmail');
+		$callback = $callback ?: [__CLASS__, 'callbackEmail'];
 		$regex = '/' . self::REGEX_MATCH_ANCHOR . '|' . self::REGEX_MATCH_TAG . '|' . self::REGEX_CHAR_BACK . self::REGEX_EMAIL . '/i';
 		return preg_replace_callback($regex, $callback, $text);
 	}
@@ -108,11 +108,11 @@ class Linkify extends Extractor {
 		$tag = str_replace('#', '', $matches[2]);
 		$uri = elgg_get_plugin_setting("hashtag_uri", 'hypeScraper', "search?search_type=tags&q=%s");
 		$href = sprintf($uri, $tag);
-		return $matches[1] . elgg_format_element('a', array(
+		return $matches[1] . elgg_format_element('a', [
 			'class' => 'scraper-hashtag',
 			'href' => elgg_normalize_url($href),
 			'data-qualifier' => 'hashtag',
-		), $matches[2]);
+		], $matches[2]);
 	}
 
 	/**
@@ -133,12 +133,12 @@ class Linkify extends Extractor {
 			$text = (!empty($data['title'])) ? $data['title'] : $text;
 		}
 
-		return $matches[1] . elgg_format_element('a', array(
+		return $matches[1] . elgg_format_element('a', [
 			'class' => 'scraper-url',
 			'href' => $matches[2],
 			'data-qualifier' => 'url',
 			'rel' => 'nofollow',
-		), $text);
+		], $text);
 	}
 
 	/**
@@ -160,13 +160,13 @@ class Linkify extends Extractor {
 			return $matches[0];
 		}
 
-		return $matches[1] . elgg_format_element('a', array(
+		return $matches[1] . elgg_format_element('a', [
 			'class' => 'scraper-username',
 			'href' => $user->getURL(),
 			'data-qualifier' => 'username',
 			'data-value' => $user->username,
 			'data-guid' => $user->guid,
-		), $user->getDisplayName());
+		], $user->getDisplayName());
 	}
 
 	/**
@@ -181,11 +181,11 @@ class Linkify extends Extractor {
 			return $matches[0];
 		}
 		
-		return $matches[1] . elgg_format_element('a', array(
+		return $matches[1] . elgg_format_element('a', [
 			'class' => 'scraper-email',
 			'href' => "mailto:{$matches[2]}",
 			'data-qualifier' => 'email',
-		), $matches[2]);
+		], $matches[2]);
 	}
 
 }

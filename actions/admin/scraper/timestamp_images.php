@@ -13,10 +13,10 @@ $getter = function($options) {
 		LIMIT $offset, $limit 
 	";
 
-	return get_data($query);
+	return elgg()->db->getData($query);
 };
 
-$svc = \hypeJunction\Scraper\ScraperService::getInstance();
+$svc = elgg()->scraper;
 
 $batch = new ElggBatch($getter, [
 	'limit' => 0,
@@ -25,7 +25,6 @@ $batch = new ElggBatch($getter, [
 $i = 0;
 
 foreach ($batch as $row) {
-
 	$data = unserialize($row->data);
 	$thumbnail_url = elgg_extract('thumbnail_url', $data);
 	if (!$thumbnail_url) {

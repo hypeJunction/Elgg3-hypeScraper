@@ -48,4 +48,10 @@ return [
 	'scraper:settings:preview_type' => 'Default Preview Type',
 	'scraper:settings:preview_type:card' => 'URL card',
 	'scraper:settings:preview_type:player' => 'Player',
+
+	'field:web_location' => 'Web Address',
+	'field:web_location:help' => 'Link this post to another online resource',
+
+	'embed:player' => 'Video Player',
+	'embed:player:address' => 'URL address of the content',
 ];

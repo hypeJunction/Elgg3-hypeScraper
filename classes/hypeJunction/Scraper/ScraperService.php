@@ -2,57 +2,76 @@
 
 namespace hypeJunction\Scraper;
 
-use Elgg\Cache\Pool;
+use DatabaseException;
+use Elgg\Application\Database;
+use Elgg\Cache\CompositeCache;
+use Elgg\Database\Delete;
+use Elgg\Database\Insert;
+use Elgg\Database\Select;
 use ElggFile;
-use GuzzleHttp\Cookie\CookieJar;
-use GuzzleHttp\Cookie\SetCookie;
 use hypeJunction\Parser;
+use InvalidParameterException;
+use IOException;
 
-/**
- * @access private
- */
 class ScraperService {
-
-	/**
-	 * @var self
-	 */
-	static $_instance;
 
 	/**
 	 * @var Parser
 	 */
-	private $parser;
+	protected $parser;
 
 	/**
-	 * @var Pool
+	 * @var CompositeCache
 	 */
-	private $cache;
+	protected $cache;
+
+	/**
+	 * @var Database
+	 */
+	protected $db;
 
 	/**
 	 * Constructor
 	 *
-	 * @param Parser $parser Parser
-	 * @param Pool   $cache  Cache
+	 * @param Parser         $parser Parser
+	 * @param CompositeCache $cache  Cache
+	 * @param Database       $db     Database
+	 *
+	 * @access private
 	 */
-	public function __construct(Parser $parser, Pool $cache) {
+	public function __construct(
+		Parser $parser,
+		CompositeCache $cache,
+		Database $db
+	) {
 		$this->parser = $parser;
 		$this->cache = $cache;
+		$this->db = $db;
 	}
 
 	/**
-	 * Returns a singleton
-	 * @return self
+	 * Scape a resource by URL
+	 *
+	 * @param string $url        URL to scrape
+	 * @param bool   $cache_only Only return previously scraped data
+	 * @param bool   $flush      Flush cache and re-parse
+	 *
+	 * @return array|false
 	 */
-	public static function getInstance() {
-		if (is_null(self::$_instance)) {
-			$conf = self::getHttpClientConfig();
-			$client = new \GuzzleHttp\Client($conf);
-			$parser = new \hypeJunction\Parser($client);
-			$cache = $routes_cache = is_memcache_available() ? new Memcache() : new FileCache();
-			self::$_instance = new self($parser, $cache);
+	public function scrape($url, $cache_only = false, $flush = false) {
+		if (!filter_var($url, FILTER_VALIDATE_URL)) {
+			return false;
 		}
 
-		return self::$_instance;
+		try {
+			if ($cache_only) {
+				return $this->get($url);
+			}
+
+			return $this->parse($url, $flush);
+		} catch (\Exception $ex) {
+			return false;
+		}
 	}
 
 	/**
@@ -60,7 +79,10 @@ class ScraperService {
 	 *
 	 * @param string $url URL
 	 *
-	 * @return array|void
+	 * @return array|null
+	 * @throws DatabaseException
+	 *
+	 * @access private
 	 */
 	public function get($url) {
 		if (!$this->parser->isValidUrl($url)) {
@@ -69,18 +91,16 @@ class ScraperService {
 			return null;
 		}
 
-		$data = $this->cache->get(sha1($url));
+		$data = $this->cache->load(sha1($url));
 		if ($data) {
 			return $data;
 		}
 
-		$dbprefix = elgg_get_config('dbprefix');
-		$row = get_data_row("
-			SELECT * FROM {$dbprefix}scraper_data
-			WHERE url = :url
-		", null, [
-			':url' => $url,
-		]);
+		$qb = Select::fromTable('scraper_data');
+		$qb->select('*')
+			->where($qb->compare('url', '=', $url, ELGG_VALUE_STRING));
+
+		$row = $this->db->getDataRow($qb);
 
 		return $row ? unserialize($row->data) : null;
 	}
@@ -91,20 +111,20 @@ class ScraperService {
 	 * @param string $query Query to match against
 	 *
 	 * @return string[]
+	 * @throws DatabaseException
+	 * @access private
 	 */
 	public function find($query) {
 
-		$query = sanitize_string($query);
+		$qb = Select::fromTable('scraper_data');
+		$qb->select('url')
+			->where($qb->compare('url', 'like', $query, ELGG_VALUE_STRING));
 
-		$dbprefix = elgg_get_config('dbprefix');
-		$rows = get_data("
-			SELECT url FROM {$dbprefix}scraper_data
-			WHERE url LIKE '%$query%'
-		");
-
-		return array_map(function ($elem) {
+		$rows = $this->db->getData($qb, function ($elem) {
 			return $elem->url;
-		}, $rows);
+		});
+
+		return $rows;
 	}
 
 	/**
@@ -115,6 +135,10 @@ class ScraperService {
 	 * @param bool   $recurse Recurse into subresources
 	 *
 	 * @return array|false
+	 * @throws DatabaseException
+	 * @throws IOException
+	 * @throws InvalidParameterException
+	 * @access private
 	 */
 	public function parse($url, $flush = false, $recurse = true) {
 
@@ -218,29 +242,24 @@ class ScraperService {
 	 * @param string $url  URL
 	 * @param array  $data Data
 	 *
-	 * @return boolean
+	 * @return bool
+	 * @access private
+	 * @throws DatabaseException
 	 */
 	public function save($url, $data = false) {
 		if (!$url) {
 			return false;
 		}
 
-		$dbprefix = elgg_get_config('dbprefix');
-		$result = insert_data("
-			INSERT INTO {$dbprefix}scraper_data
-			SET url = :url,
-			    hash = :hash,
-				data = :data
-			ON DUPLICATE KEY UPDATE
-			    data = :data
-		", [
-			':url' => (string) $url,
-			':data' => serialize($data),
-			':hash' => sha1($url),
-		]);
+		$qb = Insert::intoTable('scraper_data');
+		$qb->setValue('url', $qb->param($url, ELGG_VALUE_STRING))
+			->setValue('hash', $qb->param(sha1($url), ELGG_VALUE_STRING))
+			->setValue('data', $qb->param(serialize($data)));
+
+		$result = $this->db->insertData($qb);
 
 		if ($result) {
-			$this->cache->put(sha1($url), $data);
+			$this->cache->save(sha1($url), $data);
 
 			return true;
 		}
@@ -254,6 +273,8 @@ class ScraperService {
 	 * @param string $url URL
 	 *
 	 * @return bool
+	 * @throws DatabaseException
+	 * @access private
 	 */
 	public function delete($url) {
 
@@ -270,15 +291,12 @@ class ScraperService {
 			}
 		}
 
-		$this->cache->invalidate(sha1($url));
+		$this->cache->delete(sha1($url));
 
-		$dbprefix = elgg_get_config('dbprefix');
-		$result = delete_data("
-				DELETE FROM {$dbprefix}scraper_data
-				WHERE url = :url
-		", [
-			':url' => (string) $url,
-		]);
+		$qb = Delete::fromTable('scraper_data');
+		$qb->where($qb->compare('url', '=', $url, ELGG_VALUE_STRING));
+
+		$result = $this->db->deleteData($qb);
 
 		return (bool) $result;
 	}
@@ -288,7 +306,10 @@ class ScraperService {
 	 *
 	 * @param string $url URL of the image
 	 *
-	 * @return \ElggFile|false
+	 * @return ElggFile|false
+	 * @throws IOException
+	 * @throws InvalidParameterException
+	 * @access private
 	 */
 	public function saveImageFromUrl($url) {
 
@@ -371,6 +392,10 @@ class ScraperService {
 	 * @param array $data Data
 	 *
 	 * @return array
+	 * @throws DatabaseException
+	 * @throws IOException
+	 * @throws InvalidParameterException
+	 * @access private
 	 */
 	public function parseThumbs(array $data = []) {
 		$assets = [];
@@ -411,46 +436,12 @@ class ScraperService {
 	}
 
 	/**
-	 * Returns default config for http requests
-	 * @return array
-	 */
-	public static function getHttpClientConfig() {
-		$jar = new CookieJar();
-		$jar->setCookie(new SetCookie([
-			'Name' => 'Elgg',
-			'Value' => elgg_get_session()->getId(),
-			'Domain' => parse_url(elgg_get_site_url(), PHP_URL_HOST),
-		]));
-
-		$config = [
-			'headers' => [
-				'User-Agent' => implode(' ', [
-					'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.12)',
-					'Gecko/20101026',
-					'Firefox/3.6.12'
-				]),
-			],
-			'allow_redirects' => [
-				'max' => 10,
-				'strict' => true,
-				'referer' => true,
-				'protocols' => ['http', 'https']
-			],
-			'timeout' => 5,
-			'connect_timeout' => 5,
-			'verify' => false,
-			'cookies' => $jar,
-		];
-
-		return elgg_trigger_plugin_hook('http:config', 'framework:scraper', null, $config);
-	}
-
-	/**
 	 * Do we estimate that we have enough memory available to resize an image?
 	 *
 	 * @param string $source - the source path of the file
 	 *
 	 * @return bool
+	 * @access private
 	 */
 	public function hasMemoryToResize($source) {
 		$imginfo = getimagesize($source);

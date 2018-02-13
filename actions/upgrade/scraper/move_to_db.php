@@ -1,7 +1,6 @@
 <?php
 
 use Elgg\EntityDirLocator;
-use hypeJunction\Scraper\ScraperService;
 
 if (get_input('upgrade_completed')) {
 	$factory = new ElggUpgrade();
@@ -12,7 +11,7 @@ if (get_input('upgrade_completed')) {
 	return true;
 }
 
-$svc = ScraperService::getInstance();
+$svc = elgg()->scraper;
 
 $site = elgg_get_site_entity();
 $dataroot = elgg_get_config('dataroot');
@@ -29,7 +28,6 @@ $error_count = 0;
 $response = [];
 
 while (count($paths) > 0 && microtime(true) - $original_time < $time_limit) {
-	
 	$path = array_shift($paths);
 
 	error_log((string) count($paths));
@@ -62,7 +60,6 @@ while (count($paths) > 0 && microtime(true) - $original_time < $time_limit) {
 	try {
 		$svc->parse($url);
 	} catch (Exception $e) {
-
 	}
 	ob_clean();
 

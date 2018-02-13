@@ -2,7 +2,7 @@
 
 $href = get_input('href');
 
-$svc = hypeJunction\Scraper\ScraperService::getInstance();
+$svc = elgg()->scraper;
 
 if ($data = $svc->parse($href, true)) {
 	return elgg_ok_response($data, elgg_echo('scraper:refetch:success'));

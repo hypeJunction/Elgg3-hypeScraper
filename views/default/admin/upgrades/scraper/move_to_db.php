@@ -1,6 +1,6 @@
 <?php
 
-$svc = \hypeJunction\Scraper\ScraperService::getInstance();
+$svc = elgg()->scraper;
 
 $site = elgg_get_site_entity();
 $dataroot = elgg_get_config('dataroot');

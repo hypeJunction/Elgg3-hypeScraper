@@ -9,7 +9,7 @@
  */
 $value = elgg_extract('value', $vars, '');
 $limit = elgg_extract('limit', $vars, 0);
-$params = elgg_extract('params', $vars, array());
+$params = elgg_extract('params', $vars, []);
 $i = 0;
 
 $tokens = hypeapps_extract_tokens($value);
