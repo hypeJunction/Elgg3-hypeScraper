@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-		require('dotenv').config();
 
 	var package = grunt.file.readJSON('package.json');
 
