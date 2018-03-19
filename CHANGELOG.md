@@ -1,3 +1,18 @@
+<a name="5.5.3"></a>
+## [5.5.3](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/5.5.2...5.5.3) (2018-03-19)
+
+
+### Bug Fixes
+
+* **embedding:** first return value from getoEmbedDomains now correct ([38f7f95](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/commit/38f7f95))
+
+
+### Features
+
+* **releases:** upgrade for Elgg 3 ([56c6e1e](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/commit/56c6e1e))
+
+
+
 <a name="5.5.2"></a>
 ## [5.5.2](https://github.com/hypeJunction/hypeScraper/compare/5.5.1...v5.5.2) (2017-10-17)
 
