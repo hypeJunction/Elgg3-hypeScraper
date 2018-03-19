@@ -1,3 +1,8 @@
+<a name="6.0.0"></a>
+# [6.0.0](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/5.5.3...6.0.0) (2018-03-19)
+
+
+
 <a name="5.5.3"></a>
 ## [5.5.3](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/5.5.2...5.5.3) (2018-03-19)
 
