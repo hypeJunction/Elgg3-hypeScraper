@@ -3,7 +3,7 @@
 namespace hypeJunction\Scraper;
 
 use Elgg\Hook;
-use ElggEntity;
+use hypeJunction\Fields\Collection;
 
 class AddFormField {
 
@@ -17,41 +17,12 @@ class AddFormField {
 	public function __invoke(Hook $hook) {
 
 		$fields = $hook->getValue();
+		/* @var $field Collection */
 
-		$fields['web_location'] = [
-			'#type' => 'url',
-			'#setter' => function (ElggEntity $entity, $value) use ($hook) {
-				$svc = $hook->elgg()->{'posts.web_location'};
-
-				/* @var $svc \hypeJunction\Scraper\Post */
-
-				return $svc->setWebLocation($entity, $value);
-			},
-			'#getter' => function (ElggEntity $entity) use ($hook) {
-				$svc = $hook->elgg()->{'posts.web_location'};
-				/* @var $svc \hypeJunction\Scraper\Post */
-
-				$location = $svc->getWebLocation($entity);
-				if ($location) {
-					return $location->getURL();
-				}
-
-				return null;
-			},
-			'#priority' => 415,
-			'#visibility' => function (ElggEntity $entity) use ($hook) {
-				$params = [
-					'entity' => $entity,
-				];
-
-				return $hook->elgg()->hooks->trigger(
-					'uses:web_location',
-					"$entity->type:$entity->subtype",
-					$params,
-					false
-				);
-			}
-		];
+		$fields->add('web_location', new WebLocationField([
+			'type' => 'url',
+			'priority' => 415,
+		]));
 
 		return $fields;
 	}
