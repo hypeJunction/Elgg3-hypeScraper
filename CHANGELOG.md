@@ -1,3 +1,13 @@
+<a name="6.0.2"></a>
+## [6.0.2](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.0.1...6.0.2) (2018-04-17)
+
+
+### Bug Fixes
+
+* **dev:** use service facade ([da4f97f](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/commit/da4f97f))
+
+
+
 <a name="6.0.1"></a>
 ## [6.0.1](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.0.0...6.0.1) (2018-03-28)
 
