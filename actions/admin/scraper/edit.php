@@ -2,7 +2,7 @@
 
 $href = get_input('href');
 
-$svc = elgg()->scraper;
+$svc = \hypeJunction\Scraper\ScraperService::instance();
 $data = $svc->get($href);
 $data['thumbnail_url'] = get_input('thumbnail_url', $data['thumbnail_url']);
 $data['title'] = get_input('title', $data['title'], false);

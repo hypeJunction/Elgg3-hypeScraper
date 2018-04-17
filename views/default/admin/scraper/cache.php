@@ -14,7 +14,7 @@ if (!$domain) {
 	return;
 }
 
-$svc = elgg()->scraper;
+$svc = \hypeJunction\Scraper\ScraperService::instance();
 $urls = $svc->find($domain);
 if (empty($urls)) {
 	echo elgg_format_element('p', [

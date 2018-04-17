@@ -7,7 +7,7 @@ if (!elgg()->has('shortcodes')) {
 $svc = elgg()->shortcodes;
 /* @var $svc \hypeJunction\Shortcodes\ShortcodesService */
 
-$scraper = elgg()->scraper;
+$scraper = \hypeJunction\Scraper\ScraperService::instance();
 /* @var $scraper \hypeJunction\Scraper\ScraperService */
 
 $url = elgg_extract('url', $vars);

@@ -8,12 +8,15 @@ use Elgg\Cache\CompositeCache;
 use Elgg\Database\Delete;
 use Elgg\Database\Insert;
 use Elgg\Database\Select;
+use Elgg\Di\ServiceFacade;
 use ElggFile;
 use hypeJunction\Parser;
 use InvalidParameterException;
 use IOException;
 
 class ScraperService {
+
+	use ServiceFacade;
 
 	/**
 	 * @var Parser
@@ -455,5 +458,13 @@ class ScraperService {
 		$mem_avail = $mem_avail - $mem_used - 20971520; // 20 MB buffer, yeah arbitrary but necessary
 
 		return $mem_avail > $requiredMemory;
+	}
+
+	/**
+	 * Returns registered service name
+	 * @return string
+	 */
+	public static function name() {
+		return 'scraper';
 	}
 }

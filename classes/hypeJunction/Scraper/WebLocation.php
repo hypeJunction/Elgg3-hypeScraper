@@ -31,7 +31,7 @@ class WebLocation {
 	 * @return WebResource
 	 */
 	public function getData() {
-		$scraper = elgg()->scraper;
+		$scraper = \hypeJunction\Scraper\ScraperService::instance();
 		/* @var $scraper ScraperService */
 		$data = $scraper->scrape($this->url) ? : [
 			'url' => $this->url,

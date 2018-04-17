@@ -16,7 +16,7 @@ $getter = function($options) {
 	return elgg()->db->getData($query);
 };
 
-$svc = elgg()->scraper;
+$svc = \hypeJunction\Scraper\ScraperService::instance();
 
 $batch = new ElggBatch($getter, [
 	'limit' => 0,
