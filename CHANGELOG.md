@@ -1,3 +1,13 @@
+<a name="6.0.3"></a>
+## [6.0.3](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.0.2...6.0.3) (2018-04-25)
+
+
+### Bug Fixes
+
+* **extract:** make sure html entities are decoded before extracting tokens ([ef93384](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/commit/ef93384))
+
+
+
 <a name="6.0.2"></a>
 ## [6.0.2](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.0.1...6.0.2) (2018-04-17)
 
