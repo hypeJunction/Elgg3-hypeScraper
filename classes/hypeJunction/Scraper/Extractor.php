@@ -29,6 +29,8 @@ class Extractor {
 	 * @return array
 	 */
 	public static function all($text = '') {
+		$text = html_entity_decode($text);
+
 		return [
 			'urls' => self::urls($text) ? : [],
 			'hashtags' =>  self::hashtags($text) ? : [],
