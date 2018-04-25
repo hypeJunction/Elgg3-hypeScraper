@@ -1,3 +1,13 @@
+<a name="6.1.0"></a>
+# [6.1.0](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.0.3...6.1.0) (2018-04-25)
+
+
+### Features
+
+* **core:** align with latest core changes ([9acff29](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/commit/9acff29))
+
+
+
 <a name="6.0.3"></a>
 ## [6.0.3](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.0.2...6.0.3) (2018-04-25)
 
