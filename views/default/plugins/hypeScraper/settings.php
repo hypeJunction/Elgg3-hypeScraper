@@ -28,13 +28,14 @@ if (elgg_is_active_plugin('bookmarks')) {
 	]);
 }
 
-$domains = \hypeJunction\Scraper\Views::getoEmbedDomains();
+$domains = \hypeJunction\Scraper\ScraperService::instance()->getoEmbedDomains();
+
 echo elgg_view_field([
 	'#type' => 'plaintext',
 	'#label' => elgg_echo('scraper:settings:oembed_domains'),
 	'#help' => elgg_echo('scraper:settings:oembed_domains:help'),
 	'name' => 'params[oembed_domains]',
-	'value' => implode(PHP_EOL, $domains),
+	'value' => implode("\r\n", $domains),
 ]);
 
 echo elgg_view_field([

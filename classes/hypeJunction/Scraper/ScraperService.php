@@ -9,6 +9,7 @@ use Elgg\Database\Delete;
 use Elgg\Database\Insert;
 use Elgg\Database\Select;
 use Elgg\Di\ServiceFacade;
+use Elgg\Includer;
 use ElggFile;
 use hypeJunction\Parser;
 use InvalidParameterException;
@@ -32,6 +33,11 @@ class ScraperService {
 	 * @var Database
 	 */
 	protected $db;
+
+	/**
+	 * @var array
+	 */
+	protected $domains;
 
 	/**
 	 * Constructor
@@ -466,5 +472,40 @@ class ScraperService {
 	 */
 	public static function name() {
 		return 'scraper';
+	}
+
+	/**
+	 * Returns an array of normalized whitelisted domains
+	 *
+	 * @return array
+	 */
+	public function getoEmbedDomains() {
+
+		if (isset($this->domains)) {
+			return $this->domains;
+		}
+
+		$normalize = function($url) {
+			$url = trim($url);
+			$domain = parse_url($url, PHP_URL_HOST);
+			if (!$domain) {
+				$domain = $url;
+			}
+			$domain = str_replace('www.', '', $domain);
+			return $domain;
+		};
+
+		$domains = elgg_get_plugin_setting('oembed_domains', 'hypeScraper', '');
+		$domains = preg_split('/$\R?^/m', $domains);
+		$domains = array_filter($domains);
+
+		if (empty($domains)) {
+			$root = elgg_get_plugins_path();
+			$domains = Includer::includeFile($root . '/hypeScraper/lib/whitelist.php');
+		}
+
+		$this->domains = array_map($normalize, $domains);
+
+		return $this->domains;
 	}
 }

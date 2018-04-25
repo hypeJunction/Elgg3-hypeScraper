@@ -1,6 +1,8 @@
 <?php
 
 return [
+	'bootstrap' => \hypeJunction\Scraper\Bootstrap::class,
+
 	'actions' => [
 		'admin/scraper/edit' => [
 			'access' => 'admin',
@@ -15,6 +17,7 @@ return [
 			'access' => 'admin',
 		],
 	],
+
 	'routes' => [
 		'scraper:card' => [
 			'path' => '/scraper',
@@ -24,6 +27,7 @@ return [
 			],
 		],
 	],
+
 	'settings' => [
 		'linkify' => true,
 		'bookmarks' => true,

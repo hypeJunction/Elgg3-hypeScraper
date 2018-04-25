@@ -13,6 +13,7 @@ $params = elgg_extract('params', $vars, []);
 $i = 0;
 
 $tokens = hypeapps_extract_tokens($value);
+
 $urls = elgg_extract('urls', $tokens, []);
 
 if (empty($urls)) {
@@ -26,6 +27,7 @@ foreach ($urls as $url) {
 	$params['href'] = $url;
 
 	$preview_type = elgg_get_plugin_setting('preview_type', 'hypeScraper', 'card');
+
 	if ($preview_type != 'card') {
 		$params['fallback'] = true;
 		echo elgg_view('output/player', $params);

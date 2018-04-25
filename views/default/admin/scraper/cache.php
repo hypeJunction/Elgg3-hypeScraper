@@ -16,6 +16,7 @@ if (!$domain) {
 
 $svc = \hypeJunction\Scraper\ScraperService::instance();
 $urls = $svc->find($domain);
+
 if (empty($urls)) {
 	echo elgg_format_element('p', [
 		'class' => 'elgg-no-results',
