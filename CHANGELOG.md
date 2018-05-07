@@ -1,3 +1,13 @@
+<a name="6.1.1"></a>
+## [6.1.1](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.1.0...6.1.1) (2018-05-07)
+
+
+### Bug Fixes
+
+* **river:** fix attachment ([5321107](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/commit/5321107))
+
+
+
 <a name="6.1.0"></a>
 # [6.1.0](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.0.3...6.1.0) (2018-04-25)
 
