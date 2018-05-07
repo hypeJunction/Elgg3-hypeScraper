@@ -16,7 +16,7 @@ class EmbedRiverAttachment {
 
 		$vars = $hook->getValue();
 
-		if (!empty($vars['attachments'])) {
+		if (isset($vars['attachments'])) {
 			return null;
 		}
 
