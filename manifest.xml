@@ -10,7 +10,7 @@
     <description>URL scraping and embeding services</description>
     <website>http://hypejunction.com/</website>
     <copyright>2011-2018 (c) Ismayil Khayredinov</copyright>
-    <license>GNU Public License version 2</license>
+    <license>https://hypejunction.com/license</license>
 
     <requires>
         <type>elgg_release</type>
