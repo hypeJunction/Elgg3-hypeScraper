@@ -1,3 +1,22 @@
+<a name="6.2.0"></a>
+# [6.2.0](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.0.0...6.2.0) (2018-06-29)
+
+
+### Bug Fixes
+
+* **dev:** use service facade ([da4f97f](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/commit/da4f97f))
+* **extract:** make sure html entities are decoded before extracting tokens ([ef93384](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/commit/ef93384))
+* **fields:** sync with new fields API ([d9fa8d0](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/commit/d9fa8d0))
+* **river:** fix attachment ([5321107](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/commit/5321107))
+
+
+### Features
+
+* **core:** align with latest core changes ([9acff29](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/commit/9acff29))
+* **core:** updates and fixes ([cc41b48](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/commit/cc41b48))
+
+
+
 <a name="6.1.1"></a>
 ## [6.1.1](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.1.0...6.1.1) (2018-05-07)
 
