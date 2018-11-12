@@ -1,3 +1,13 @@
+<a name="6.2.1"></a>
+## [6.2.1](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.2.0...6.2.1) (2018-11-12)
+
+
+### Bug Fixes
+
+* **deps:** remove circular dependency on hypePost ([f8fd773](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/commit/f8fd773))
+
+
+
 <a name="6.2.0"></a>
 # [6.2.0](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.0.0...6.2.0) (2018-06-29)
 
