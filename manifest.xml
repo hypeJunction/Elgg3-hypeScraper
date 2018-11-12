@@ -29,11 +29,6 @@
 
     <suggests>
         <type>plugin</type>
-        <name>hypePost</name>
-    </suggests>
-
-    <suggests>
-        <type>plugin</type>
         <name>hypeShortcode</name>
     </suggests>
 
