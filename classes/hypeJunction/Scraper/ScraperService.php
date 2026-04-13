@@ -8,7 +8,7 @@ use Elgg\Cache\CompositeCache;
 use Elgg\Database\Delete;
 use Elgg\Database\Insert;
 use Elgg\Database\Select;
-use Elgg\Di\ServiceFacade;
+use Elgg\Traits\Di\ServiceFacade;
 use Elgg\Includer;
 use ElggFile;
 use hypeJunction\Parser;
