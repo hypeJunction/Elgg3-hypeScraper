@@ -8,7 +8,6 @@ use Elgg\Cache\CompositeCache;
 use Elgg\Database\Delete;
 use Elgg\Database\Insert;
 use Elgg\Database\Select;
-use Elgg\Di\ServiceFacade;
 use Elgg\Includer;
 use ElggFile;
 use hypeJunction\Parser;
@@ -17,7 +16,12 @@ use IOException;
 
 class ScraperService {
 
-	use ServiceFacade;
+	/**
+	 * @return static
+	 */
+	public static function instance(): self {
+		return elgg()->get(static::name());
+	}
 
 	/**
 	 * @var Parser

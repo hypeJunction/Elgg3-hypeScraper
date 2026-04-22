@@ -42,7 +42,7 @@ class Bootstrap extends PluginBootstrap {
 
 		elgg_register_plugin_hook_handler('format:src', 'embed', PrepareEmbedCard::class);
 		elgg_register_plugin_hook_handler('extract:meta', 'all', ScrapeUrlMetadata::class);
-		elgg_register_plugin_hook_handler('extract:qualifiers', 'all', ExtractTokensFromText::class);
+		elgg_register_plugin_hook_handler('extract:qualifiers', 'all', [ExtractTokensFromText::class, 'extractTokens']);
 		elgg_register_plugin_hook_handler('prepare', 'html', PrepareHtmlOutput::class, 100);
 
 		elgg_register_plugin_hook_handler('fields', 'object', AddFormField::class);

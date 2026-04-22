@@ -16,16 +16,26 @@ class HooksTest extends IntegrationTestCase {
 	public function down() {}
 
 	public function getPluginID(): string {
-		return 'hypeScraper';
+		return 'hypescraper';
 	}
 
 	public function testFormatSrcEmbedHookWired(): void {
+		// PrepareEmbedCard renders the player view which calls ScraperService::instance().
+		// ScraperService depends on hypeJunction\Parser from a separate plugin.
+		if (!class_exists(\hypeJunction\Parser::class)) {
+			$this->markTestSkipped('hypeJunction\\Parser not available (hypeParser inactive)');
+		}
 		// PrepareEmbedCard is registered on format:src/embed.
 		$result = elgg_trigger_plugin_hook('format:src', 'embed', [], '');
 		$this->assertIsString($result);
 	}
 
 	public function testExtractMetaHookWired(): void {
+		// ScrapeUrlMetadata depends on ScraperService which depends on hypeJunction\Parser
+		// (from a separate plugin). Skip if that dep is absent in the test stack.
+		if (!class_exists(\hypeJunction\Parser::class)) {
+			$this->markTestSkipped('hypeJunction\\Parser not available (hypeParser inactive)');
+		}
 		// ScrapeUrlMetadata is registered on extract:meta/all. Just assert
 		// the trigger doesn't throw — empty-url handler may return false,
 		// null, array, or an object depending on what the scraper returns.

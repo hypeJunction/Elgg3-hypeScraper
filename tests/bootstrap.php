@@ -22,7 +22,7 @@ spl_autoload_register(function ($class) use ($testClassesDir) {
 
 if (function_exists('_elgg_services')) {
     _elgg_services()->plugins->generateEntities();
-    $boot_plugin = elgg_get_plugin_from_id('hypeScraper') ?: elgg_get_plugin_from_id('hypescraper');
+    $boot_plugin = elgg_get_plugin_from_id('hypescraper');
     if ($boot_plugin) {
         if (!$boot_plugin->isEnabled()) {
             $boot_plugin->enable();
@@ -30,6 +30,11 @@ if (function_exists('_elgg_services')) {
         if (!$boot_plugin->isActive()) {
             try { $boot_plugin->activate(); } catch (\Throwable $e) {}
         }
+        // System cache may be stale (built before this plugin's views were registered).
+        // Re-register views and persist the updated location index so that each
+        // test's setUp() -> boot->boot() -> configureFromCache() loads correct views.
+        _elgg_services()->views->registerPluginViews($boot_plugin->getPath());
+        _elgg_services()->views->cacheConfiguration(_elgg_services()->serverCache);
         try { $boot_plugin->init(); } catch (\Throwable $e) {}
     }
 }

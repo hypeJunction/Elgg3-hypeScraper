@@ -18,11 +18,11 @@ class BootstrapTest extends IntegrationTestCase {
 	public function down() {}
 
 	public function getPluginID(): string {
-		return 'hypeScraper';
+		return 'hypescraper';
 	}
 
 	public function testPluginLoadable(): void {
-		$plugin = elgg_get_plugin_from_id('hypeScraper') ?: elgg_get_plugin_from_id('hypescraper');
+		$plugin = elgg_get_plugin_from_id('hypescraper');
 		$this->assertNotNull($plugin);
 		$this->assertNotFalse($plugin->isActive());
 	}

@@ -18,8 +18,9 @@ class FilteroEmbedHtml {
 	 *
 	 * @return array
 	 */
-	public function __invoke($hook, $type, $return, $params) {
+	public function __invoke(\Elgg\Hook $hook) {
 
+		$return = $hook->getValue();
 		if (empty($return['html'])) {
 			return;
 		}
