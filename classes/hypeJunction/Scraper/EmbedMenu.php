@@ -4,25 +4,26 @@ namespace hypeJunction\Scraper;
 
 use Elgg\Event;
 
-class EmbedMenu {
-
-	/**
+class EmbedMenu
+{
+    /**
      * @param Event $event
      * @return mixed
      */
-    public function __invoke(Event $event) {
+    public function __invoke(Event $event)
+    {
 
-		$menu = $event->getValue();
+        $menu = $event->getValue();
 
-		$menu[] = \ElggMenuItem::factory([
-			'name' => 'player',
-			'text' => elgg_echo('embed:player'),
-			'priority' => 500,
-			'data' => [
-				'view' => 'embed/tab/player',
-			],
-		]);
+        $menu[] = \ElggMenuItem::factory([
+            'name' => 'player',
+            'text' => elgg_echo('embed:player'),
+            'priority' => 500,
+            'data' => [
+                'view' => 'embed/tab/player',
+            ],
+        ]);
 
-		return $menu;
-	}
+        return $menu;
+    }
 }

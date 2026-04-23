@@ -17,110 +17,178 @@ class BootstrapTest extends IntegrationTestCase {
 	public function up() {}
 	public function down() {}
 
-	public function getPluginID(): string {
+	/**
+     * @return string
+     */
+    public function getPluginID(): string {
 		return 'hypescraper';
 	}
 
-	public function testPluginLoadable(): void {
+	/**
+     * @return void
+     */
+    public function testPluginLoadable(): void {
 		$plugin = elgg_get_plugin_from_id('hypescraper');
 		$this->assertNotNull($plugin);
 		$this->assertNotFalse($plugin->isActive());
 	}
 
 	// === Actions (declared in elgg-plugin.php) ===
-
-	public function testAdminScraperEditActionRegistered(): void {
+    /**
+     * @return void
+     */
+    public function testAdminScraperEditActionRegistered(): void {
 		$this->assertTrue(elgg_action_exists('admin/scraper/edit'));
 	}
 
-	public function testAdminScraperRefetchActionRegistered(): void {
+	/**
+     * @return void
+     */
+    public function testAdminScraperRefetchActionRegistered(): void {
 		$this->assertTrue(elgg_action_exists('admin/scraper/refetch'));
 	}
 
-	public function testAdminScraperClearActionRegistered(): void {
+	/**
+     * @return void
+     */
+    public function testAdminScraperClearActionRegistered(): void {
 		$this->assertTrue(elgg_action_exists('admin/scraper/clear'));
 	}
 
-	public function testAdminScraperTimestampImagesActionRegistered(): void {
+	/**
+     * @return void
+     */
+    public function testAdminScraperTimestampImagesActionRegistered(): void {
 		$this->assertTrue(elgg_action_exists('admin/scraper/timestamp_images'));
 	}
 
 	// === Routes ===
-
-	public function testScraperCardRouteRegistered(): void {
+    /**
+     * @return void
+     */
+    public function testScraperCardRouteRegistered(): void {
 		$routes = _elgg_services()->routes->all();
 		$this->assertArrayHasKey('scraper:card', $routes);
 	}
 
 	// === Classes autoload (24 classes in hypeJunction\Scraper namespace) ===
-
-	public function testScraperServiceClassExists(): void {
+    /**
+     * @return void
+     */
+    public function testScraperServiceClassExists(): void {
 		$this->assertTrue(class_exists(ScraperService::class));
 	}
 
-	public function testBootstrapClassExists(): void {
+	/**
+     * @return void
+     */
+    public function testBootstrapClassExists(): void {
 		$this->assertTrue(class_exists(Bootstrap::class));
 	}
 
-	public function testRouterClassExists(): void {
+	/**
+     * @return void
+     */
+    public function testRouterClassExists(): void {
 		$this->assertTrue(class_exists(Router::class));
 	}
 
-	public function testExtractorClassExists(): void {
+	/**
+     * @return void
+     */
+    public function testExtractorClassExists(): void {
 		$this->assertTrue(class_exists(Extractor::class));
 	}
 
-	public function testWebResourceClassExists(): void {
+	/**
+     * @return void
+     */
+    public function testWebResourceClassExists(): void {
 		$this->assertTrue(class_exists(WebResource::class));
 	}
 
-	public function testWebLocationClassExists(): void {
+	/**
+     * @return void
+     */
+    public function testWebLocationClassExists(): void {
 		$this->assertTrue(class_exists(WebLocation::class));
 	}
 
-	public function testPrepareHtmlOutputClassExists(): void {
+	/**
+     * @return void
+     */
+    public function testPrepareHtmlOutputClassExists(): void {
 		$this->assertTrue(class_exists(PrepareHtmlOutput::class));
 	}
 
-	public function testScrapeUrlMetadataClassExists(): void {
+	/**
+     * @return void
+     */
+    public function testScrapeUrlMetadataClassExists(): void {
 		$this->assertTrue(class_exists(ScrapeUrlMetadata::class));
 	}
 
-	public function testPrepareEmbedCardClassExists(): void {
+	/**
+     * @return void
+     */
+    public function testPrepareEmbedCardClassExists(): void {
 		$this->assertTrue(class_exists(PrepareEmbedCard::class));
 	}
 
-	public function testExtractTokensFromTextClassExists(): void {
+	/**
+     * @return void
+     */
+    public function testExtractTokensFromTextClassExists(): void {
 		$this->assertTrue(class_exists(ExtractTokensFromText::class));
 	}
 
-	public function testFilteroEmbedHtmlClassExists(): void {
+	/**
+     * @return void
+     */
+    public function testFilteroEmbedHtmlClassExists(): void {
 		$this->assertTrue(class_exists(FilteroEmbedHtml::class));
 	}
 
-	public function testCardMenuClassExists(): void {
+	/**
+     * @return void
+     */
+    public function testCardMenuClassExists(): void {
 		$this->assertTrue(class_exists(CardMenu::class));
 	}
 
-	public function testPageMenuClassExists(): void {
+	/**
+     * @return void
+     */
+    public function testPageMenuClassExists(): void {
 		$this->assertTrue(class_exists(PageMenu::class));
 	}
 
 	// === Views ===
-
-	public function testScraperCardViewExists(): void {
+    /**
+     * @return void
+     */
+    public function testScraperCardViewExists(): void {
 		$this->assertTrue(elgg_view_exists('resources/scraper/card'));
 	}
 
-	public function testScraperStylesheetViewExists(): void {
+	/**
+     * @return void
+     */
+    public function testScraperStylesheetViewExists(): void {
 		$this->assertTrue(elgg_view_exists('framework/scraper/stylesheet.css'));
 	}
 
-	public function testScraperPlayerJsViewExists(): void {
+	/**
+     * @return void
+     */
+    public function testScraperPlayerJsViewExists(): void {
 		$this->assertTrue(elgg_view_exists('framework/scraper/player.js'));
 	}
 
-	public function testOutputCardViewExists(): void {
+	/**
+     * @return void
+     */
+    public function testOutputCardViewExists(): void {
 		$this->assertTrue(elgg_view_exists('output/card'));
 	}
 }

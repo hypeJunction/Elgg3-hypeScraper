@@ -16,23 +16,25 @@ namespace hypeJunction\Scraper;
  * @property string   $thumbnail_url
  * @property string   $html
  */
-class WebResource extends \ArrayObject {
+class WebResource extends \ArrayObject
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct($input = [], int $flags = self::ARRAY_AS_PROPS, string $iterator_class = "ArrayIterator")
+    {
+        parent::__construct($input, $flags, $iterator_class);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function __construct($input = [], int $flags = self::ARRAY_AS_PROPS, string $iterator_class = "ArrayIterator") {
-		parent::__construct($input, $flags, $iterator_class);
-	}
-
-	/**
-	 * Returns meta tag value
-	 *
-	 * @param string $name Tag name
-	 *
-	 * @return mixed
-	 */
-	public function meta($name) {
-		return elgg_extract($name, $this->metatags);
-	}
+    /**
+     * Returns meta tag value
+     *
+     * @param string $name Tag name
+     *
+     * @return mixed
+     */
+    public function meta($name)
+    {
+        return elgg_extract($name, $this->metatags);
+    }
 }

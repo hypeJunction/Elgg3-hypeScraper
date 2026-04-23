@@ -1,53 +1,53 @@
 <?php
+
 /**
  *
  */
 
 namespace hypeJunction\Scraper;
 
+class FilteroEmbedHtml
+{
+    /**
+     * Filter parsed metatags
+     *
+     * @param string $hook   "parse"
+     * @param string $type   "framework/scraper"
+     * @param array  $return Data
+     * @param array  $params Hook params
+     *
+     * @return array
+     */
+    public function __invoke(\Elgg\Event $event)
+    {
 
-class FilteroEmbedHtml {
+        $return = $event->getValue();
+        if (empty($return['html'])) {
+            return;
+        }
 
-	/**
-	 * Filter parsed metatags
-	 *
-	 * @param string $hook   "parse"
-	 * @param string $type   "framework/scraper"
-	 * @param array  $return Data
-	 * @param array  $params Hook params
-	 *
-	 * @return array
-	 */
-	public function __invoke(\Elgg\Event $event) {
+        $url = parse_url(elgg_extract('url', $return, ''), PHP_URL_HOST);
+        $canonical_url = parse_url(elgg_extract('canonical', $return, ''), PHP_URL_HOST);
 
-		$return = $event->getValue();
-		if (empty($return['html'])) {
-			return;
-		}
+        $domains = ScraperService::instance()->getoEmbedDomains();
 
-		$url = parse_url(elgg_extract('url', $return, ''), PHP_URL_HOST);
-		$canonical_url = parse_url(elgg_extract('canonical', $return, ''), PHP_URL_HOST);
+        $matches = array_map(function ($elem) use ($url, $canonical_url) {
+            $elem = preg_quote($elem);
+            $domain_pattern = "/(.+?)?$elem/i";
 
-		$domains = ScraperService::instance()->getoEmbedDomains();
+            return preg_match($domain_pattern, $url) || preg_match($domain_pattern, $canonical_url);
+        }, $domains);
 
-		$matches = array_map(function ($elem) use ($url, $canonical_url) {
-			$elem = preg_quote($elem);
-			$domain_pattern = "/(.+?)?$elem/i";
+        $matches = array_filter($matches);
 
-			return preg_match($domain_pattern, $url) || preg_match($domain_pattern, $canonical_url);
-		}, $domains);
+        // only allow html from whitelisted domains
+        if (empty($matches)) {
+            unset($return['html']);
+        } elseif (!preg_match('/<iframe|video|audio/i', $return['html'])) {
+            // only allow iframe, video, and audio tags
+            unset($return['html']);
+        }
 
-		$matches = array_filter($matches);
-
-		// only allow html from whitelisted domains
-		if (empty($matches)) {
-			unset($return['html']);
-		} else if (!preg_match('/<iframe|video|audio/i', $return['html'])) {
-			// only allow iframe, video, and audio tags
-			unset($return['html']);
-		}
-
-		return $return;
-	}
-
+        return $return;
+    }
 }
