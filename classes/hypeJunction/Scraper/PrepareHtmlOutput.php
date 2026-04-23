@@ -2,24 +2,17 @@
 
 namespace hypeJunction\Scraper;
 
-use Elgg\Hook;
+use Elgg\Event;
 
 class PrepareHtmlOutput {
 
-	/**
-	 * Prepare HTML output
-	 *
-	 * @param Hook $hook Hook
-	 *
-	 * @return array
-	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $event) {
 
-		if (!elgg_get_plugin_setting('linkify', 'hypeScraper')) {
+		if (!elgg_get_plugin_setting('linkify', 'hypescraper')) {
 			return null;
 		}
 
-		$value = $hook->getValue();
+		$value = $event->getValue();
 
 		$html = elgg_extract('html', $value);
 		$options = elgg_extract('options', $value);

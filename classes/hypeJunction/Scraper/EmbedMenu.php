@@ -2,19 +2,13 @@
 
 namespace hypeJunction\Scraper;
 
-use Elgg\Hook;
+use Elgg\Event;
 
 class EmbedMenu {
 
-	/**
-	 * Setup embed menu
-	 *
-	 * @param Hook $hook Hook
-	 * @return \ElggMenuItem[]
-	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $event) {
 
-		$menu = $hook->getValue();
+		$menu = $event->getValue();
 
 		$menu[] = \ElggMenuItem::factory([
 			'name' => 'player',

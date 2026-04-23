@@ -238,7 +238,7 @@ class ScraperService {
 				break;
 		}
 
-		$data = elgg_trigger_plugin_hook('parse', 'framework:scraper', [
+		$data = elgg_trigger_event_results('parse', 'framework:scraper', [
 			'url' => $url,
 		], $data);
 

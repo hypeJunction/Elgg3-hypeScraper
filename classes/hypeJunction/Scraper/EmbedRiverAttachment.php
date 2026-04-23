@@ -2,19 +2,13 @@
 
 namespace hypeJunction\Scraper;
 
-use Elgg\Hook;
+use Elgg\Event;
 
 class EmbedRiverAttachment {
 
-	/**
-	 * Add player preview to river items
-	 *
-	 * @param $hook Hook Hook
-	 * @return array|null
-	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $event) {
 
-		$vars = $hook->getValue();
+		$vars = $event->getValue();
 
 		if (isset($vars['attachments'])) {
 			return null;

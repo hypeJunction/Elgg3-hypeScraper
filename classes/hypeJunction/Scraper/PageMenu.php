@@ -2,20 +2,13 @@
 
 namespace hypeJunction\Scraper;
 
-use Elgg\Hook;
+use Elgg\Event;
 
 class PageMenu {
 
-	/**
-	 * @elgg_plugin_hook register menu:page
-	 *
-	 * @param Hook $hook
-	 *
-	 * @return \Elgg\Menu\MenuItems|mixed|null
-	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $event) {
 
-		$menu = $hook->getValue();
+		$menu = $event->getValue();
 		/* @var $menu \Elgg\Menu\MenuItems */
 
 		if (!elgg_in_context('admin')) {

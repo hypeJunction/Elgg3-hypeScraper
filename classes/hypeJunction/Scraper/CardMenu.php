@@ -2,30 +2,23 @@
 
 namespace hypeJunction\Scraper;
 
-use Elgg\Hook;
+use Elgg\Event;
 use ElggMenuItem;
 
 class CardMenu {
 
-	/**
-	 * Setup menu
-	 *
-	 * @param Hook $hook Hook
-	 *
-	 * @return ElggMenuItem[]
-	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $event) {
 
 		if (!elgg_is_admin_logged_in()) {
 			return null;
 		}
 
-		$href = $hook->getParam('href');
+		$href = $event->getParam('href');
 		if (!$href) {
 			return null;
 		}
 
-		$menu = $hook->getValue();
+		$menu = $event->getValue();
 
 		$menu->add(ElggMenuItem::factory([
 			'name' => 'edit',
