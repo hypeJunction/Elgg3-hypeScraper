@@ -8,7 +8,8 @@ use GuzzleHttp\Cookie\SetCookie;
 
 class HttpConfig {
 
-	protected $hooks;
+	/** @var mixed */
+    protected $hooks;
 
 	/**
 	 * Constructor

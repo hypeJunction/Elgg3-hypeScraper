@@ -7,7 +7,8 @@ namespace hypeJunction\Scraper;
  */
 class WebLocation {
 
-	protected $url;
+	/** @var mixed */
+    protected $url;
 
 	/**
 	 * Constructor

@@ -6,7 +6,11 @@ use Elgg\Event;
 
 class EmbedMenu {
 
-	public function __invoke(Event $event) {
+	/**
+     * @param Event $event
+     * @return mixed
+     */
+    public function __invoke(Event $event) {
 
 		$menu = $event->getValue();
 

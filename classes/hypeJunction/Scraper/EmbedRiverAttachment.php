@@ -6,7 +6,11 @@ use Elgg\Event;
 
 class EmbedRiverAttachment {
 
-	public function __invoke(Event $event) {
+	/**
+     * @param Event $event
+     * @return mixed
+     */
+    public function __invoke(Event $event) {
 
 		$vars = $event->getValue();
 

@@ -115,7 +115,15 @@ class ScraperService {
 
 		$row = $this->db->getDataRow($qb);
 
-		return $row ? unserialize($row->data) : null;
+		if (!$row) {
+			return null;
+		}
+		$decoded = json_decode($row->data, true);
+		if ($decoded !== null) {
+			return $decoded;
+		}
+		// backward compat: rows saved before 5.x migration used serialize()
+		return unserialize($row->data, ['allowed_classes' => false]);
 	}
 
 	/**
@@ -267,7 +275,7 @@ class ScraperService {
 		$qb = Insert::intoTable('scraper_data');
 		$qb->setValue('url', $qb->param($url, ELGG_VALUE_STRING))
 			->setValue('hash', $qb->param(sha1($url), ELGG_VALUE_STRING))
-			->setValue('data', $qb->param(serialize($data)));
+			->setValue('data', $qb->param(json_encode($data)));
 
 		$result = $this->db->insertData($qb);
 

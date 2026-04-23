@@ -6,7 +6,11 @@ use Elgg\Event;
 
 class PrepareEmbedCard {
 
-	public function __invoke(Event $event) {
+	/**
+     * @param Event $event
+     * @return mixed
+     */
+    public function __invoke(Event $event) {
 		$href = $event->getParam('src');
 
 		$preview_type = elgg_get_plugin_setting('preview_type', 'hypescraper', 'card');

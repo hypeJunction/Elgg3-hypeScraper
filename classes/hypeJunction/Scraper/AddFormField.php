@@ -7,7 +7,11 @@ use hypeJunction\Fields\Collection;
 
 class AddFormField {
 
-	public function __invoke(Event $event) {
+	/**
+     * @param Event $event
+     * @return mixed
+     */
+    public function __invoke(Event $event) {
 
 		$fields = $event->getValue();
 		/* @var $field Collection */

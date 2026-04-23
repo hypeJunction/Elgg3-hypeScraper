@@ -21,7 +21,13 @@ class FileCache implements Pool {
 		]);
 	}
 
-	public function get($key, callable $callback = null, $default = null) {
+	/**
+     * @param mixed $key
+     * @param callable $callback
+     * @param mixed $default
+     * @return mixed
+     */
+    public function get($key, callable $callback = null, $default = null) {
 		$value = $this->cache->get($key);
 		if (!isset($value)) {
 			$value = $default;
@@ -32,11 +38,18 @@ class FileCache implements Pool {
 		return $value;
 	}
 
-	public function invalidate($key) {
+	/**
+     * @param mixed $key
+     */
+    public function invalidate($key) {
 		$this->cache->delete($key);
 	}
 
-	public function put($key, $value) {
+	/**
+     * @param mixed $key
+     * @param mixed $value
+     */
+    public function put($key, $value) {
 		$this->cache->set($key, $value);
 	}
 

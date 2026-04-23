@@ -7,7 +7,11 @@ use ElggMenuItem;
 
 class CardMenu {
 
-	public function __invoke(Event $event) {
+	/**
+     * @param Event $event
+     * @return mixed
+     */
+    public function __invoke(Event $event) {
 
 		if (!elgg_is_admin_logged_in()) {
 			return null;

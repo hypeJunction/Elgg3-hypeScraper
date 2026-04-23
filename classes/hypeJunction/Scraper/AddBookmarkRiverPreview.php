@@ -6,7 +6,11 @@ use Elgg\Event;
 
 class AddBookmarkRiverPreview {
 
-	public function __invoke(Event $event) {
+	/**
+     * @param Event $event
+     * @return mixed
+     */
+    public function __invoke(Event $event) {
 
 		if (!elgg_get_plugin_setting('bookmarks', 'hypescraper')) {
 			return;

@@ -33,4 +33,8 @@ return [
 		'bookmarks' => true,
 		'preview_type' => 'card',
 	],
+
+	'upgrades' => [
+		\hypeJunction\Scraper\Upgrade\MigrateScraperDataToJson::class,
+	],
 ];
