@@ -1,3 +1,23 @@
+## [Elgg 5.x Migration] (2026-04-23)
+
+### Breaking Changes
+
+* Requires Elgg 5.x and PHP 8.2+
+* Plugin hooks merged into unified events system: all `elgg_register_plugin_hook_handler()` calls replaced with `elgg_register_event_handler()`; all handler classes now receive `\Elgg\Event` instead of `\Elgg\Hook`
+* `elgg_trigger_plugin_hook()` replaced with `elgg_trigger_event_results()` in ScraperService and player view
+* Plugin setting lookups corrected to lowercase plugin ID `hypescraper` (was silently returning defaults with camelCase `hypeScraper`)
+
+### Features
+
+* `MigrateScraperDataToJson` upgrade batch re-encodes existing `scraper_data` rows from PHP `serialize()` to JSON
+* New saves use `json_encode()` for scraper data storage
+
+### Security
+
+* `unserialize()` replaced with `json_decode()` (with `serialize(['allowed_classes' => false])` fallback for legacy rows) preventing PHP object injection
+
+---
+
 <a name="6.2.1"></a>
 ## [6.2.1](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.2.0...6.2.1) (2018-11-12)
 
