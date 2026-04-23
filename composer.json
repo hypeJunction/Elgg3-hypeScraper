@@ -14,16 +14,22 @@
 		}
 	],
 	"extra": {
-		"installer-name": "hypeScraper"
+		"installer-name": "hypescraper"
 	},
 	"require": {
-		"php": ">=5.5",
-		"composer/installers": "~1.0",
+		"php": ">=8.2",
+		"elgg/elgg": "^5.0",
+		"composer/installers": "^2.0",
 		"hypejunction/http-parser": "dev-master"
 	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true
+		}
+	},
 	"autoload": {
-		"psr-0": {
-			"": "classes/"
+		"psr-4": {
+			"hypeJunction\\Scraper\\": "classes/hypeJunction/Scraper/"
 		}
 	}
 }
