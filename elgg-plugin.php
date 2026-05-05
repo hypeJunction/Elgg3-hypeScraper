@@ -1,6 +1,11 @@
 <?php
 
 return [
+	'plugin' => [
+		'name' => 'hypeScraper',
+		'version' => '4.0.0',
+	],
+
 	'bootstrap' => \hypeJunction\Scraper\Bootstrap::class,
 
 	'actions' => [
