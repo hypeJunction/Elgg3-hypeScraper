@@ -2,7 +2,7 @@
 
 echo elgg_view_form('embed/player', [
 	'class' => 'elgg-form-embed-player',
-		], $vars);
+], $vars);
 ?>
 <script>
 	require(['embed/tab/player']);

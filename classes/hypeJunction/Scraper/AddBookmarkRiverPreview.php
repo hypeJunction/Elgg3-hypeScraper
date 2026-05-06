@@ -2,6 +2,9 @@
 
 namespace hypeJunction\Scraper;
 
+/**
+ * AddBookmarkRiverPreview class.
+ */
 class AddBookmarkRiverPreview {
 
 	/**

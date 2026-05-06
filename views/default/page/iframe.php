@@ -2,7 +2,7 @@
 $body = elgg_view('page/elements/body', $vars);
 
 // Set the content type
-header("Content-type: text/html; charset=UTF-8");
+header('Content-type: text/html; charset=UTF-8');
 
 $lang = get_current_language();
 ?>

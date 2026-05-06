@@ -14,6 +14,9 @@ use hypeJunction\Parser;
 use InvalidParameterException;
 use IOException;
 
+/**
+ * ScraperService class.
+ */
 class ScraperService {
 
 	/**
@@ -219,8 +222,8 @@ class ScraperService {
 		$type = elgg_extract('type', $data);
 
 		switch ($type) {
-			case 'photo' :
-			case 'image' :
+			case 'photo':
+			case 'image':
 				$image = $this->saveImageFromUrl($url);
 				if ($image instanceof ElggFile) {
 					$data['width'] = $image->natural_width;
@@ -231,7 +234,7 @@ class ScraperService {
 				}
 				break;
 
-			default :
+			default:
 				if ($recurse) {
 					$data = $this->parseThumbs($data);
 				}
@@ -242,7 +245,7 @@ class ScraperService {
 			'url' => $url,
 		], $data);
 
-		elgg_log("URL data parsed: " . print_r($data, true));
+		elgg_log('URL data parsed: ' . print_r($data, true));
 
 		$this->save($url, $data);
 
@@ -328,17 +331,17 @@ class ScraperService {
 
 		$mime = $this->parser->getContentType($url);
 		switch ($mime) {
-			case 'image/jpeg' :
-			case 'image/jpg' :
+			case 'image/jpeg':
+			case 'image/jpg':
 				$ext = 'jpg';
 				break;
-			case 'image/gif' :
+			case 'image/gif':
 				$ext = 'gif';
 				break;
-			case 'image/png' :
+			case 'image/png':
 				$ext = 'png';
 				break;
-			default :
+			default:
 				return false;
 		}
 
@@ -495,6 +498,7 @@ class ScraperService {
 			if (!$domain) {
 				$domain = $url;
 			}
+
 			$domain = str_replace('www.', '', $domain);
 			return $domain;
 		};

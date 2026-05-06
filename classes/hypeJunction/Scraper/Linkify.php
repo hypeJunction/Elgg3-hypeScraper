@@ -8,7 +8,7 @@ namespace hypeJunction\Scraper;
 class Linkify extends Extractor {
 
 	// match entire anchor <a></a> so we can exclude it from matches
-	const REGEX_MATCH_ANCHOR = "<a[^>]*?>.*?<\/a>";
+	const REGEX_MATCH_ANCHOR = '<a[^>]*?>.*?<\/a>';
 
 	// non-greedy match of a single tag name and attributes
 	// we need to exclude e.g. hex color codes when matchin hashes
@@ -48,7 +48,7 @@ class Linkify extends Extractor {
 	 * @return string
 	 */
 	public static function hashtags($text = '', callable $callback = null) {
-		$callback = $callback ? : [__CLASS__, 'callbackHashtag'];
+		$callback = $callback ?: [__CLASS__, 'callbackHashtag'];
 		$regex = '/' . self::REGEX_MATCH_ANCHOR . '|' . self::REGEX_MATCH_TAG . '|' . self::REGEX_CHAR_BACK . self::REGEX_HASHTAG . '/i';
 		return preg_replace_callback($regex, $callback, $text);
 	}
@@ -98,7 +98,6 @@ class Linkify extends Extractor {
 	 * @param array $matches An array of matches
 	 * @return string
 	 */
-	
 	public static function callbackHashtag($matches) {
 		
 		if (empty($matches[2])) {
@@ -106,7 +105,7 @@ class Linkify extends Extractor {
 		}
 
 		$tag = str_replace('#', '', $matches[2]);
-		$uri = elgg_get_plugin_setting("hashtag_uri", 'hypeScraper', "search?search_type=tags&q=%s");
+		$uri = elgg_get_plugin_setting('hashtag_uri', 'hypeScraper', 'search?search_type=tags&q=%s');
 		$href = sprintf($uri, $tag);
 		return $matches[1] . elgg_format_element('a', [
 			'class' => 'scraper-hashtag',
@@ -187,5 +186,4 @@ class Linkify extends Extractor {
 			'data-qualifier' => 'email',
 		], $matches[2]);
 	}
-
 }

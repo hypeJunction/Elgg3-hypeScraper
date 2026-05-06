@@ -4,12 +4,15 @@ namespace hypeJunction\Scraper;
 
 use Elgg\Hook;
 
+/**
+ * PageMenu class.
+ */
 class PageMenu {
 
 	/**
-	 * @elgg_plugin_hook register menu:page
+	 * Register admin menu items for scraper
 	 *
-	 * @param Hook $hook
+	 * @param Hook $hook "register" "menu:page"
 	 *
 	 * @return \Elgg\Menu\MenuItems|mixed|null
 	 */

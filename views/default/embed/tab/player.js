@@ -50,4 +50,3 @@ define(function (require) {
 
 	});
 });
-

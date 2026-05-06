@@ -6,8 +6,19 @@ use ElggEntity;
 use hypeJunction\Fields\Field;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
+/**
+ * WebLocationField class.
+ */
 class WebLocationField extends Field {
 
+	/**
+	 * isVisible.
+	 *
+	 * @param ElggEntity $entity  entity
+	 * @param mixed      $context context
+	 *
+	 * @return mixed
+	 */
 	public function isVisible(ElggEntity $entity, $context = null) {
 		$params = [
 			'entity' => $entity,
@@ -27,6 +38,14 @@ class WebLocationField extends Field {
 		return parent::isVisible($entity, $context);
 	}
 
+	/**
+	 * save.
+	 *
+	 * @param ElggEntity   $entity     entity
+	 * @param ParameterBag $parameters parameters
+	 *
+	 * @return mixed
+	 */
 	public function save(ElggEntity $entity, ParameterBag $parameters) {
 		$value = $parameters->get($this->name);
 
@@ -37,6 +56,13 @@ class WebLocationField extends Field {
 		return $svc->setWebLocation($entity, $value);
 	}
 
+	/**
+	 * retrieve.
+	 *
+	 * @param ElggEntity $entity entity
+	 *
+	 * @return mixed
+	 */
 	public function retrieve(ElggEntity $entity) {
 		$svc = elgg()->{'posts.web_location'};
 		/* @var $svc \hypeJunction\Scraper\Post */

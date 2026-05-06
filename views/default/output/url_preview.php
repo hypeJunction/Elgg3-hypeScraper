@@ -24,6 +24,7 @@ foreach ($urls as $url) {
 	if ($limit > 0 && $i >= $limit) {
 		continue;
 	}
+
 	$params['href'] = $url;
 
 	$preview_type = elgg_get_plugin_setting('preview_type', 'hypeScraper', 'card');
@@ -34,5 +35,6 @@ foreach ($urls as $url) {
 	} else {
 		echo elgg_view('output/card', $params);
 	}
+
 	$i++;
 }

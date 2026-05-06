@@ -5,6 +5,9 @@ namespace hypeJunction\Scraper;
 use Elgg\Hook;
 use ElggMenuItem;
 
+/**
+ * CardMenu class.
+ */
 class CardMenu {
 
 	/**

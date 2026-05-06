@@ -5,18 +5,17 @@
 
 namespace hypeJunction\Scraper;
 
-
+/**
+ * FilteroEmbedHtml class.
+ */
 class FilteroEmbedHtml {
 
 	/**
 	 * Filter parsed metatags
 	 *
-	 * @param string $hook   "parse"
-	 * @param string $type   "framework/scraper"
-	 * @param array  $return Data
-	 * @param array  $params Hook params
+	 * @param \Elgg\Hook $hook Hook
 	 *
-	 * @return array
+	 * @return array|void
 	 */
 	public function __invoke(\Elgg\Hook $hook) {
 
@@ -49,5 +48,4 @@ class FilteroEmbedHtml {
 
 		return $return;
 	}
-
 }

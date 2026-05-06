@@ -4,6 +4,9 @@ namespace hypeJunction\Scraper;
 
 use ElggEntity;
 
+/**
+ * Post class.
+ */
 class Post {
 
 	/**

@@ -32,10 +32,10 @@ class Extractor {
 		$text = html_entity_decode($text);
 
 		return [
-			'urls' => self::urls($text) ? : [],
-			'hashtags' =>  self::hashtags($text) ? : [],
-			'emails' => self::emails($text) ? : [],
-			'usernames' => self::usernames($text) ? : [],
+			'urls' => self::urls($text) ?: [],
+			'hashtags' => self::hashtags($text) ?: [],
+			'emails' => self::emails($text) ?: [],
+			'usernames' => self::usernames($text) ?: [],
 		];
 	}
 
@@ -94,5 +94,4 @@ class Extractor {
 		$results = array_filter($matches[2]);
 		return array_unique($results);
 	}
-
 }

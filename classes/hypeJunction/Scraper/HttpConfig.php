@@ -6,6 +6,9 @@ use Elgg\PluginHooksService;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Cookie\SetCookie;
 
+/**
+ * HttpConfig class.
+ */
 class HttpConfig {
 
 	protected $hooks;
@@ -53,5 +56,4 @@ class HttpConfig {
 
 		return $this->hooks->trigger('http:config', 'framework:scraper', null, $config);
 	}
-
 }

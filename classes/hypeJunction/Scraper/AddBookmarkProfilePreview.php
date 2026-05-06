@@ -2,6 +2,9 @@
 
 namespace hypeJunction\Scraper;
 
+/**
+ * AddBookmarkProfilePreview class.
+ */
 class AddBookmarkProfilePreview {
 
 	/**

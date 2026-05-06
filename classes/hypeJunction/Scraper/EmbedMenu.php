@@ -4,6 +4,9 @@ namespace hypeJunction\Scraper;
 
 use Elgg\Hook;
 
+/**
+ * EmbedMenu class.
+ */
 class EmbedMenu {
 
 	/**

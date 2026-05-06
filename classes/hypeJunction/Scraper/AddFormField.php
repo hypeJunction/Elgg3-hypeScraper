@@ -5,6 +5,9 @@ namespace hypeJunction\Scraper;
 use Elgg\Hook;
 use hypeJunction\Fields\Collection;
 
+/**
+ * AddFormField class.
+ */
 class AddFormField {
 
 	/**

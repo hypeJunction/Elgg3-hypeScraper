@@ -33,11 +33,8 @@ class WebLocation {
 	public function getData() {
 		$scraper = \hypeJunction\Scraper\ScraperService::instance();
 		/* @var $scraper ScraperService */
-		$data = $scraper->scrape($this->url) ? : [
-			'url' => $this->url,
-		];
+		$data = $scraper->scrape($this->url) ?: ['url' => $this->url];
 
 		return new WebResource($data);
 	}
-
 }

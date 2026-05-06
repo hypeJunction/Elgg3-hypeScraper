@@ -31,7 +31,7 @@ if ($data['html']) {
 			$ratio = ($height / $width) * 100;
 			$style = [
 				"padding-bottom: {$ratio}%;",
-				"padding-top: 0;",
+				'padding-top: 0;',
 			];
 		}
 

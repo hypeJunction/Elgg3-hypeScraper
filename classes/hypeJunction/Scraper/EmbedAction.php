@@ -5,6 +5,9 @@ namespace hypeJunction\Scraper;
 use Elgg\BadRequestException;
 use Elgg\Request;
 
+/**
+ * EmbedAction class.
+ */
 class EmbedAction {
 
 	/**
