@@ -18,7 +18,7 @@ class PrepareHtmlOutput {
 	 */
 	public function __invoke(Hook $hook) {
 
-		if (!elgg_get_plugin_setting('linkify', 'hypeScraper')) {
+		if (!elgg_get_plugin_setting('linkify', 'hypescraper')) {
 			return null;
 		}
 

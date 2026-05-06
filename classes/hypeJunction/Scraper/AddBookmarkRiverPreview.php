@@ -19,7 +19,7 @@ class AddBookmarkRiverPreview {
 	 */
 	public function __invoke($hook, $type, $return, $params) {
 
-		if (!elgg_get_plugin_setting('bookmarks', 'hypeScraper')) {
+		if (!elgg_get_plugin_setting('bookmarks', 'hypescraper')) {
 			return;
 		}
 
@@ -37,7 +37,7 @@ class AddBookmarkRiverPreview {
 			return;
 		}
 
-		$preview_type = elgg_get_plugin_setting('preview_type', 'hypeScraper', 'card');
+		$preview_type = elgg_get_plugin_setting('preview_type', 'hypescraper', 'card');
 		if ($preview_type != 'card') {
 			$return['attachments'] = elgg_view('output/player', [
 				'href' => $object->address,

@@ -105,7 +105,7 @@ class Linkify extends Extractor {
 		}
 
 		$tag = str_replace('#', '', $matches[2]);
-		$uri = elgg_get_plugin_setting('hashtag_uri', 'hypeScraper', 'search?search_type=tags&q=%s');
+		$uri = elgg_get_plugin_setting('hashtag_uri', 'hypescraper', 'search?search_type=tags&q=%s');
 		$href = sprintf($uri, $tag);
 		return $matches[1] . elgg_format_element('a', [
 			'class' => 'scraper-hashtag',
@@ -127,7 +127,7 @@ class Linkify extends Extractor {
 		}
 		
 		$text = $matches[2];
-		if (elgg_get_plugin_setting('linkify_url_titles', 'hypeScraper', true)) {
+		if (elgg_get_plugin_setting('linkify_url_titles', 'hypescraper', true)) {
 			$data = hypeapps_scrape($text, true);
 			$text = (!empty($data['title'])) ? $data['title'] : $text;
 		}

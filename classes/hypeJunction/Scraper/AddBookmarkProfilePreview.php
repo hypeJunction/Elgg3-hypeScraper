@@ -19,7 +19,7 @@ class AddBookmarkProfilePreview {
 	 */
 	public function __invoke($hook, $type, $return, $params) {
 
-		if (!elgg_get_plugin_setting('bookmarks', 'hypeScraper')) {
+		if (!elgg_get_plugin_setting('bookmarks', 'hypescraper')) {
 			return;
 		}
 

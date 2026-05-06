@@ -18,7 +18,7 @@ if ($iframe) {
 		'href' => $href,
 	]);
 } else {
-	$preview_type = elgg_get_plugin_setting('preview_type', 'hypeScraper', 'card');
+	$preview_type = elgg_get_plugin_setting('preview_type', 'hypescraper', 'card');
 	if ($preview_type != 'card') {
 		$content = elgg_view('output/player', [
 			'href' => $href,

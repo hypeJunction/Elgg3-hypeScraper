@@ -27,7 +27,7 @@ foreach ($urls as $url) {
 
 	$params['href'] = $url;
 
-	$preview_type = elgg_get_plugin_setting('preview_type', 'hypeScraper', 'card');
+	$preview_type = elgg_get_plugin_setting('preview_type', 'hypescraper', 'card');
 
 	if ($preview_type != 'card') {
 		$params['fallback'] = true;

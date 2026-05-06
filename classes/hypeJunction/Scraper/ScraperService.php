@@ -369,8 +369,8 @@ class ScraperService {
 			return false;
 		}
 
-		$lower_threashold = elgg_get_plugin_setting('cache_thumb_size_lower_threshold', 'hypeScraper', 100);
-		$upper_threshold = elgg_get_plugin_setting('cache_thumb_size_upper_threshold', 'hypeScraper', 1500);
+		$lower_threashold = elgg_get_plugin_setting('cache_thumb_size_lower_threshold', 'hypescraper', 100);
+		$upper_threshold = elgg_get_plugin_setting('cache_thumb_size_upper_threshold', 'hypescraper', 1500);
 		$imagesize = getimagesize($tmp->getFilenameOnFilestore());
 		if (!$imagesize || $imagesize[0] < $lower_threashold || $imagesize[0] > $upper_threshold) {
 			$tmp->delete();
@@ -388,7 +388,7 @@ class ScraperService {
 		$image->open('write');
 		$image->close();
 
-		$size = elgg_get_plugin_setting('cache_thumb_size', 'hypeScraper', 500);
+		$size = elgg_get_plugin_setting('cache_thumb_size', 'hypescraper', 500);
 		$thumb = elgg_save_resized_image($tmp->getFilenameOnFilestore(), $image->getFilenameOnFilestore(), [
 			'w' => $size,
 			'h' => $size,
@@ -503,7 +503,7 @@ class ScraperService {
 			return $domain;
 		};
 
-		$domains = elgg_get_plugin_setting('oembed_domains', 'hypeScraper', '');
+		$domains = elgg_get_plugin_setting('oembed_domains', 'hypescraper', '');
 		$domains = preg_split('/$\R?^/m', $domains);
 		$domains = array_filter($domains);
 
