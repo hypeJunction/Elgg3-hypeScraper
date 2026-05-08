@@ -2,18 +2,18 @@
 
 namespace hypeJunction\Scraper;
 
-use DatabaseException;
 use Elgg\Application\Database;
 use Elgg\Cache\CompositeCache;
 use Elgg\Database\Delete;
 use Elgg\Database\Insert;
 use Elgg\Database\Select;
+use Elgg\Exceptions\DatabaseException;
+use Elgg\Exceptions\FileSystem\IOException;
+use Elgg\Exceptions\InvalidParameterException;
 use Elgg\Traits\Di\ServiceFacade;
 use Elgg\Includer;
 use ElggFile;
 use hypeJunction\Parser;
-use InvalidParameterException;
-use IOException;
 
 class ScraperService {
 
