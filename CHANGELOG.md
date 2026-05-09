@@ -1,3 +1,17 @@
+## [7.0.0] (2026-05-09) — Elgg 7.x Migration
+
+### Breaking Changes
+
+* Requires Elgg ^7.0 and PHP 8.3+
+* CSS Crush preprocessing removed — CSS files served as-is
+
+### Migration (6.x → 7.x)
+
+* `framework/scraper/stylesheet.css`: replaced `$(media-mobile-only)` CSS Crush variable with native `@media (max-width: 820px)`
+* Bumped `elgg/elgg: ^7.0`, `php: >=8.3`
+
+---
+
 ## [Elgg 6.x Migration] (2026-05-09)
 
 ### Breaking Changes

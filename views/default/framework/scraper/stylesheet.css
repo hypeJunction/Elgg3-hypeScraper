@@ -41,7 +41,7 @@
 	padding: 0;
 }
 
-@media $(media-mobile-only) {
+@media (max-width: 820px) {
 	.scraper-card-block {
 		-webkit-flex-wrap: wrap;
 		flex-wrap: wrap;

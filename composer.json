@@ -17,8 +17,8 @@
 		"installer-name": "hypescraper"
 	},
 	"require": {
-		"php": ">=8.2",
-		"elgg/elgg": "^6.0",
+		"php": ">=8.3",
+		"elgg/elgg": "^7.0",
 		"composer/installers": "^2.0",
 		"hypejunction/http-parser": "dev-master"
 	},
