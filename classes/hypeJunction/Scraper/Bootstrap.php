@@ -39,7 +39,6 @@ class Bootstrap extends PluginBootstrap
 
         elgg_extend_view('elgg.css', 'framework/scraper/stylesheet.css');
         elgg_extend_view('admin.css', 'framework/scraper/stylesheet.css');
-        elgg_extend_view('elgg.js', 'framework/scraper/player.js');
 
         elgg_register_ajax_view('output/card');
 

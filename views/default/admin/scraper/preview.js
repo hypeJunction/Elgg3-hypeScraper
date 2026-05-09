@@ -1,16 +1,15 @@
-define(function(require) {
+import $ from 'jquery';
+import Ajax from 'elgg/Ajax';
 
-	var Ajax = require('elgg/Ajax');
-	var ajax = new Ajax();
+const ajax = new Ajax();
 
-	$(document).on('submit', '.elgg-form-admin-scraper-preview', function(e) {
-		e.preventDefault();
+$(document).on('submit', '.elgg-form-admin-scraper-preview', function(e) {
+	e.preventDefault();
 
-		var $form = $(this);
-		ajax.view('output/card', {
-			data: ajax.objectify($form),
-		}).done(function(output) {
-			$('#scraper-preview').html($(output));
-		});
+	var $form = $(this);
+	ajax.view('output/card', {
+		data: ajax.objectify($form),
+	}).done(function(output) {
+		$('#scraper-preview').html($(output));
 	});
 });

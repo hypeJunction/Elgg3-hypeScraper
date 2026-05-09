@@ -1,7 +1,7 @@
 <?php
 
 echo elgg_view_form('admin/scraper/preview', [
-	'action' => current_page_url(),
+	'action' => elgg_get_current_url(),
 	'method' => 'GET',
 	'disable_security' => true,
 ]);
@@ -18,4 +18,4 @@ echo elgg_format_element('div', [
 	'id' => 'scraper-preview',
 ], $card);
 
-elgg_require_js('admin/scraper/preview');
+elgg_import_esm('admin/scraper/preview');

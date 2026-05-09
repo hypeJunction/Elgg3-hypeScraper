@@ -1,3 +1,19 @@
+## [Elgg 6.x Migration] (2026-05-09)
+
+### Breaking Changes
+
+* Requires Elgg ^6.0
+* AMD JavaScript modules converted to ES modules (import/export syntax)
+* `elgg.js` bundle extension removed; player script now loaded on-demand via
+  `elgg_import_esm('framework/scraper/player')` when play button is rendered
+* `elgg_require_js()` replaced with `elgg_import_esm()` in admin views
+* `elgg.trigger_hook()` removed from embed player JS (was removed in Elgg 5.x)
+
+### Fixed
+
+* `current_page_url()` → `elgg_get_current_url()` in admin preview and cache
+  views (was missed in the 5.x migration)
+
 ## [Elgg 5.x Migration] (2026-04-23)
 
 ### Breaking Changes
