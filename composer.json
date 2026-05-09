@@ -1,29 +1,32 @@
 {
-	"name": "hypejunction/hypescraper",
-	"type": "elgg-plugin",
-	"description": "Extraction and embedding service",
-	"homepage": "https://github.com/hypeJunction/hypescraper",
-	"keywords": [
-		"elgg", "plugin", "extract", "embed"
-	],
-	"license": "proprietary",
-	"authors": [
-		{
-			"name": "hypeJunction"
-		}
-	],
-	"extra": {
-		"installer-name": "hypeScraper"
-	},
-	"require": {
-		"php": ">=7.4",
-		"composer/installers": "^2.0",
-		"elgg/elgg": "^4.0",
-		"hypejunction/http-parser": "dev-master"
-	},
-	"autoload": {
-		"psr-0": {
-			"": "classes/"
-		}
-	}
+    "name": "hypejunction/hypescraper",
+    "type": "elgg-plugin",
+    "description": "Extraction and embedding service",
+    "homepage": "https://github.com/hypeJunction/hypescraper",
+    "keywords": [
+        "elgg",
+        "plugin",
+        "extract",
+        "embed"
+    ],
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "hypeJunction"
+        }
+    ],
+    "extra": {
+        "installer-name": "hypeScraper"
+    },
+    "require": {
+        "php": ">=7.4",
+        "composer/installers": "^2.0",
+        "elgg/elgg": "^4.0",
+        "hypejunction/http-parser": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "classes/"
+        }
+    }
 }
