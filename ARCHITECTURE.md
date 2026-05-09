@@ -108,3 +108,7 @@ hypescraper/
 - `serialize()` → `json_encode()` for new DB saves; `MigrateScraperDataToJson` upgrade batch re-encodes existing rows
 - PHP bumped to 8.2, `composer.json` `psr-0` → `psr-4`
 - Docker stack upgraded from PHP 7.4/Elgg 4.3.6 to PHP 8.2/Elgg 5.1.4
+
+## Seeding
+
+No seeder required. This plugin owns no entity types, subtypes, or persistent relationship schemas — it is a pure UI/utility/admin plugin with no persisted entity surface of its own.
