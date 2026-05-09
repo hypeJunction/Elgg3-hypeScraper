@@ -1,12 +1,12 @@
 {
 	"name": "hypeScraper",
 	"version": "6.2.1",
-	"license": "SEE LICENSE IN https://hypejunction.com/license",
+	"license": "proprietary",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:hypeJunctionPro/Elgg3-hypeScraper.git",
-		"owner": "hypeJunctionPro",
-		"repo": "Elgg3-hypeScraper"
+		"url": "git@github.com:hypeJunction/hypescraper.git",
+		"owner": "hypeJunction",
+		"repo": "hypescraper"
 	},
     "dependencies": {
         "curlrequest": "^1.0.1",
