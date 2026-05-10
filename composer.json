@@ -17,8 +17,8 @@
 		"installer-name": "hypeScraper"
 	},
 	"require": {
-		"php": ">=5.5",
-		"composer/installers": "~1.0",
+		"php": ">=7.4",
+		"composer/installers": "^2.0",
 		"hypejunction/http-parser": "dev-master"
 	},
 	"autoload": {
