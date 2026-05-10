@@ -2,26 +2,20 @@
 
 namespace hypeJunction\Scraper;
 
+use Elgg\Hook;
+
 class AddBookmarkRiverPreview {
 
-	/**
-	 * Display a preview of a bookmark
-	 *
-	 * @param string $hook   'view_vars'
-	 * @param string $type   "river/elements/layout"
-	 * @param array  $return View vars
-	 * @param array  $params Hook params
-	 *
-	 * @return array
-	 */
-	public function __invoke($hook, $type, $return, $params) {
+	public function __invoke(Hook $hook) {
 
-		if (!elgg_get_plugin_setting('bookmarks', 'hypeScraper')) {
+		if (!elgg_get_plugin_setting('bookmarks', 'hypescraper')) {
 			return;
 		}
 
+		$return = $hook->getValue();
+
 		$item = elgg_extract('item', $return);
-		if (!$item instanceof ElggRiverItem) {
+		if (!$item instanceof \ElggRiverItem) {
 			return;
 		}
 
@@ -30,11 +24,11 @@ class AddBookmarkRiverPreview {
 		}
 
 		$object = $item->getObjectEntity();
-		if (!elgg_instanceof($object, 'object', 'bookmarks')) {
+		if (!$object instanceof \ElggObject || $object->getSubtype() !== 'bookmarks') {
 			return;
 		}
 
-		$preview_type = elgg_get_plugin_setting('preview_type', 'hypeScraper', 'card');
+		$preview_type = elgg_get_plugin_setting('preview_type', 'hypescraper', 'card');
 		if ($preview_type != 'card') {
 			$return['attachments'] = elgg_view('output/player', [
 				'href' => $object->address,

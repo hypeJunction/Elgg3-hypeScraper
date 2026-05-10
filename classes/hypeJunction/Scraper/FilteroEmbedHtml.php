@@ -1,24 +1,14 @@
 <?php
-/**
- *
- */
 
 namespace hypeJunction\Scraper;
 
+use Elgg\Hook;
 
 class FilteroEmbedHtml {
 
-	/**
-	 * Filter parsed metatags
-	 *
-	 * @param string $hook   "parse"
-	 * @param string $type   "framework/scraper"
-	 * @param array  $return Data
-	 * @param array  $params Hook params
-	 *
-	 * @return array
-	 */
-	public function __invoke($hook, $type, $return, $params) {
+	public function __invoke(Hook $hook) {
+
+		$return = $hook->getValue();
 
 		if (empty($return['html'])) {
 			return;
@@ -38,15 +28,12 @@ class FilteroEmbedHtml {
 
 		$matches = array_filter($matches);
 
-		// only allow html from whitelisted domains
 		if (empty($matches)) {
 			unset($return['html']);
-		} else if (!preg_match('/<iframe|video|audio/i', $return['html'])) {
-			// only allow iframe, video, and audio tags
+		} elseif (!preg_match('/<iframe|video|audio/i', $return['html'])) {
 			unset($return['html']);
 		}
 
 		return $return;
 	}
-
 }

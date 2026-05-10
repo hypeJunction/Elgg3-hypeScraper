@@ -2,26 +2,20 @@
 
 namespace hypeJunction\Scraper;
 
+use Elgg\Hook;
+
 class AddBookmarkProfilePreview {
 
-	/**
-	 * Display a preview of a bookmark
-	 *
-	 * @param string $hook   'view_vars'
-	 * @param string $type   "object/elements/full"
-	 * @param array  $return View vars
-	 * @param array  $params Hook params
-	 *
-	 * @return array
-	 */
-	public function __invoke($hook, $type, $return, $params) {
+	public function __invoke(Hook $hook) {
 
-		if (!elgg_get_plugin_setting('bookmarks', 'hypeScraper')) {
+		if (!elgg_get_plugin_setting('bookmarks', 'hypescraper')) {
 			return;
 		}
 
+		$return = $hook->getValue();
+
 		$entity = elgg_extract('entity', $return);
-		if (!elgg_instanceof($entity, 'object', 'bookmarks')) {
+		if (!$entity instanceof \ElggObject || $entity->getSubtype() !== 'bookmarks') {
 			return;
 		}
 
