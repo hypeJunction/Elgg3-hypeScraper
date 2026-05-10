@@ -73,6 +73,7 @@ if (($meta->type == 'image' || $meta->type == 'photo') && $icon_url) {
 	}
 
 	if ($meta->html && ($meta->type == 'rich' || $meta->type == 'video')) {
+		elgg_import_esm('framework/scraper/player');
 		$icon .= elgg_format_element('div', [
 			'class' => 'scraper-play-button',
 			'data-href' => elgg_http_get_signed_url(elgg_http_add_url_query_elements('scraper', [

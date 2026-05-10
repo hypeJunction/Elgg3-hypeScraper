@@ -2,53 +2,49 @@
 
 namespace hypeJunction\Scraper;
 
-/**
- * AddBookmarkRiverPreview class.
- */
-class AddBookmarkRiverPreview {
+use Elgg\Event;
 
-	/**
-	 * Display a preview of a bookmark
-	 *
-	 * @param string $hook   'view_vars'
-	 * @param string $type   "river/elements/layout"
-	 * @param array  $return View vars
-	 * @param array  $params Hook params
-	 *
-	 * @return array
-	 */
-	public function __invoke($hook, $type, $return, $params) {
+class AddBookmarkRiverPreview
+{
+    /**
+     * @param Event $event
+     * @return mixed
+     */
+    public function __invoke(Event $event)
+    {
 
-		if (!elgg_get_plugin_setting('bookmarks', 'hypescraper')) {
-			return;
-		}
+        if (!elgg_get_plugin_setting('bookmarks', 'hypescraper')) {
+            return;
+        }
 
-		$item = elgg_extract('item', $return);
-		if (!$item instanceof ElggRiverItem) {
-			return;
-		}
+        $return = $event->getValue();
 
-		if ($item->view != 'river/object/bookmarks/create') {
-			return;
-		}
+        $item = elgg_extract('item', $return);
+        if (!$item instanceof \ElggRiverItem) {
+            return;
+        }
 
-		$object = $item->getObjectEntity();
-		if (!elgg_instanceof($object, 'object', 'bookmarks')) {
-			return;
-		}
+        if ($item->view != 'river/object/bookmarks/create') {
+            return;
+        }
 
-		$preview_type = elgg_get_plugin_setting('preview_type', 'hypescraper', 'card');
-		if ($preview_type != 'card') {
-			$return['attachments'] = elgg_view('output/player', [
-				'href' => $object->address,
-				'fallback' => true,
-			]);
-		} else {
-			$return['attachments'] = elgg_view('output/card', [
-				'href' => $object->address,
-			]);
-		}
+        $object = $item->getObjectEntity();
+        if (!$object instanceof \ElggObject || $object->getSubtype() !== 'bookmarks') {
+            return;
+        }
 
-		return $return;
-	}
+        $preview_type = elgg_get_plugin_setting('preview_type', 'hypescraper', 'card');
+        if ($preview_type != 'card') {
+            $return['attachments'] = elgg_view('output/player', [
+                'href' => $object->address,
+                'fallback' => true,
+            ]);
+        } else {
+            $return['attachments'] = elgg_view('output/card', [
+                'href' => $object->address,
+            ]);
+        }
+
+        return $return;
+    }
 }

@@ -2,22 +2,18 @@
 
 namespace hypeJunction\Scraper;
 
-use Elgg\Hook;
+use Elgg\Event;
 
-/**
- * ScrapeUrlMetadata class.
- */
-class ScrapeUrlMetadata {
+class ScrapeUrlMetadata
+{
+    /**
+     * @param Event $event
+     * @return mixed
+     */
+    public function __invoke(Event $event)
+    {
+        $url = $event->getParam('url');
 
-	/**
-	 * @elgg_plugin_hook extract:meta embed
-	 *
-	 * @param Hook $hook Hook
-	 * @return array
-	 */
-	public function __invoke(Hook $hook) {
-		$url = $hook->getParam('url');
-
-		return ScraperService::instance()->scrape($url);
-	}
+        return ScraperService::instance()->scrape($url);
+    }
 }

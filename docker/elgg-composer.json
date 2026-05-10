@@ -4,8 +4,8 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "elgg/elgg": "4.3.6",
-        "composer/installers": "^1.0 || ^2.0",
+        "elgg/elgg": "5.1.4",
+        "composer/installers": "^2.0",
         "phpunit/phpunit": "~9.5"
     },
     "replace": {

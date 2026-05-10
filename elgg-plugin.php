@@ -1,6 +1,11 @@
 <?php
 
 return [
+	'plugin' => [
+		'name' => 'hypeScraper',
+		'version' => '6.0.0',
+	],
+
 	'bootstrap' => \hypeJunction\Scraper\Bootstrap::class,
 
 	'actions' => [
@@ -32,5 +37,9 @@ return [
 		'linkify' => true,
 		'bookmarks' => true,
 		'preview_type' => 'card',
+	],
+
+	'upgrades' => [
+		\hypeJunction\Scraper\Upgrade\MigrateScraperDataToJson::class,
 	],
 ];

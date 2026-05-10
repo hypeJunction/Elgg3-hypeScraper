@@ -2,31 +2,26 @@
 
 namespace hypeJunction\Scraper;
 
-use Elgg\Hook;
+use Elgg\Event;
 use hypeJunction\Fields\Collection;
 
-/**
- * AddFormField class.
- */
-class AddFormField {
+class AddFormField
+{
+    /**
+     * @param Event $event
+     * @return mixed
+     */
+    public function __invoke(Event $event)
+    {
 
-	/**
-	 * Add slug field
-	 *
-	 * @param Hook $hook Hook
-	 *
-	 * @return mixed
-	 */
-	public function __invoke(Hook $hook) {
+        $fields = $event->getValue();
+        /* @var $field Collection */
 
-		$fields = $hook->getValue();
-		/* @var $field Collection */
+        $fields->add('web_location', new WebLocationField([
+            'type' => 'url',
+            'priority' => 415,
+        ]));
 
-		$fields->add('web_location', new WebLocationField([
-			'type' => 'url',
-			'priority' => 415,
-		]));
-
-		return $fields;
-	}
+        return $fields;
+    }
 }

@@ -1,3 +1,53 @@
+## [7.0.0] (2026-05-09) — Elgg 7.x Migration
+
+### Breaking Changes
+
+* Requires Elgg ^7.0 and PHP 8.3+
+* CSS Crush preprocessing removed — CSS files served as-is
+
+### Migration (6.x → 7.x)
+
+* `framework/scraper/stylesheet.css`: replaced `$(media-mobile-only)` CSS Crush variable with native `@media (max-width: 820px)`
+* Bumped `elgg/elgg: ^7.0`, `php: >=8.3`
+
+---
+
+## [Elgg 6.x Migration] (2026-05-09)
+
+### Breaking Changes
+
+* Requires Elgg ^6.0
+* AMD JavaScript modules converted to ES modules (import/export syntax)
+* `elgg.js` bundle extension removed; player script now loaded on-demand via
+  `elgg_import_esm('framework/scraper/player')` when play button is rendered
+* `elgg_require_js()` replaced with `elgg_import_esm()` in admin views
+* `elgg.trigger_hook()` removed from embed player JS (was removed in Elgg 5.x)
+
+### Fixed
+
+* `current_page_url()` → `elgg_get_current_url()` in admin preview and cache
+  views (was missed in the 5.x migration)
+
+## [Elgg 5.x Migration] (2026-04-23)
+
+### Breaking Changes
+
+* Requires Elgg 5.x and PHP 8.2+
+* Plugin hooks merged into unified events system: all `elgg_register_plugin_hook_handler()` calls replaced with `elgg_register_event_handler()`; all handler classes now receive `\Elgg\Event` instead of `\Elgg\Hook`
+* `elgg_trigger_plugin_hook()` replaced with `elgg_trigger_event_results()` in ScraperService and player view
+* Plugin setting lookups corrected to lowercase plugin ID `hypescraper` (was silently returning defaults with camelCase `hypeScraper`)
+
+### Features
+
+* `MigrateScraperDataToJson` upgrade batch re-encodes existing `scraper_data` rows from PHP `serialize()` to JSON
+* New saves use `json_encode()` for scraper data storage
+
+### Security
+
+* `unserialize()` replaced with `json_decode()` (with `serialize(['allowed_classes' => false])` fallback for legacy rows) preventing PHP object injection
+
+---
+
 <a name="6.2.1"></a>
 ## [6.2.1](https://github.com/hypeJunctionPro/Elgg3-hypeScraper/compare/6.2.0...6.2.1) (2018-11-12)
 

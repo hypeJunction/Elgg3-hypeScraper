@@ -22,4 +22,4 @@ $output = elgg_format_element('div', [
 	'contenteditable' => 'false',
 ], $tag);
 
-echo elgg_trigger_plugin_hook('prepare:player', 'embed', $vars, $output);
+echo elgg_trigger_event_results('prepare:player', 'embed', $vars, $output);

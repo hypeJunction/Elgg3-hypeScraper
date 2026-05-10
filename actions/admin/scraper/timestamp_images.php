@@ -25,7 +25,8 @@ $batch = new ElggBatch($getter, [
 $i = 0;
 
 foreach ($batch as $row) {
-	$data = unserialize($row->data);
+	$decoded = json_decode($row->data, true);
+	$data = ($decoded !== null) ? $decoded : unserialize($row->data, ['allowed_classes' => false]);
 	$thumbnail_url = elgg_extract('thumbnail_url', $data);
 	if (!$thumbnail_url) {
 		continue;
