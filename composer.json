@@ -34,6 +34,5 @@
         "psr-4": {
             "hypeJunction\\Scraper\\": "classes/hypeJunction/Scraper/"
         }
-    },
-    "version": "7.0.0"
+    }
 }
