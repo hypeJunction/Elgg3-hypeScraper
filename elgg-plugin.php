@@ -4,6 +4,11 @@ return [
 	'plugin' => [
 		'name' => 'hypeScraper',
 		'version' => '6.0.0',
+		'dependencies' => [
+			'hypefields' => [
+				'must_be_active' => true,
+			],
+		],
 	],
 
 	'bootstrap' => \hypeJunction\Scraper\Bootstrap::class,
