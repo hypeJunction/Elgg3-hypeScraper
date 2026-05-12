@@ -4,7 +4,10 @@
 	"description": "Extraction and embedding service",
 	"homepage": "http://hypejunction.com",
 	"keywords": [
-		"elgg", "plugin", "extract", "embed"
+		"elgg",
+		"plugin",
+		"extract",
+		"embed"
 	],
 	"license": "proprietary",
 	"authors": [
@@ -17,7 +20,7 @@
 		"installer-name": "hypescraper"
 	},
 	"require": {
-		"php": ">=8.2",
+		"php": ">=8.1",
 		"elgg/elgg": "^6.0",
 		"composer/installers": "^2.0",
 		"hypejunction/http-parser": "dev-master"
