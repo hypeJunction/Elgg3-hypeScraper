@@ -17,7 +17,7 @@ return [
 		->constructor(
 			'scraper',
 			\DI\get('config'),
-			ELGG_CACHE_PERSISTENT | ELGG_CACHE_FILESYSTEM
+			\Elgg\Cache\CompositeCache::CACHE_PERSISTENT | \Elgg\Cache\CompositeCache::CACHE_FILESYSTEM
 		),
 
 	'scraper' => \DI\create(\hypeJunction\Scraper\ScraperService::class)
