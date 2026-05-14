@@ -37,5 +37,5 @@ if ($iframe) {
 	]);
 }
 
-$shell = ($iframe) ? 'iframe' : 'default';el
+$shell = ($iframe) ? 'iframe' : 'default';
 echo elgg_view_page($title, $layout, $shell);
