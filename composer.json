@@ -1,35 +1,41 @@
 {
-	"name": "hypejunction/hypescraper",
-	"type": "elgg-plugin",
-	"description": "Extraction and embedding service",
-	"homepage": "http://hypejunction.com",
-	"keywords": [
-		"elgg", "plugin", "extract", "embed"
-	],
-	"license": "proprietary",
-	"authors": [
-		{
-			"name": "Ismayil Khayredinov",
-			"email": "info@hypejunction.com"
-		}
-	],
-	"extra": {
-		"installer-name": "hypescraper"
-	},
-	"require": {
-		"php": ">=8.2",
-		"elgg/elgg": "^5.0",
-		"composer/installers": "^2.0",
-		"hypejunction/http-parser": "dev-master"
-	},
-	"config": {
-		"allow-plugins": {
-			"composer/installers": true
-		}
-	},
-	"autoload": {
-		"psr-4": {
-			"hypeJunction\\Scraper\\": "classes/hypeJunction/Scraper/"
-		}
-	}
+    "name": "hypejunction/hypescraper",
+    "type": "elgg-plugin",
+    "description": "Extraction and embedding service",
+    "homepage": "http://hypejunction.com",
+    "keywords": [
+        "elgg",
+        "plugin",
+        "extract",
+        "embed"
+    ],
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Ismayil Khayredinov",
+            "email": "info@hypejunction.com"
+        }
+    ],
+    "extra": {
+        "installer-name": "hypescraper"
+    },
+    "require": {
+        "php": ">=8.2",
+        "elgg/elgg": "^5.0",
+        "composer/installers": "^2.0",
+        "hypejunction/http-parser": "dev-master"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "hypeJunction\\Scraper\\": "classes/hypeJunction/Scraper/"
+        },
+        "files": [
+            "lib/functions.php"
+        ]
+    }
 }
