@@ -162,7 +162,7 @@ class Linkify extends Extractor
         }
 
         $username = str_replace('@', '', $matches[2]);
-        $user = get_user_by_username($username);
+        $user = elgg_get_user_by_username($username);
 
         if (!$user) {
             return $matches[0];
