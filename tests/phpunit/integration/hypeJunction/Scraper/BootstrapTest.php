@@ -28,7 +28,7 @@ class BootstrapTest extends IntegrationTestCase {
      * @return void
      */
     public function testPluginLoadable(): void {
-		$plugin = elgg_get_plugin_from_id('hypescraper');
+		$plugin = \elgg_get_plugin_from_id('hypescraper');
 		$this->assertNotNull($plugin);
 		$this->assertNotFalse($plugin->isActive());
 	}
@@ -38,28 +38,28 @@ class BootstrapTest extends IntegrationTestCase {
      * @return void
      */
     public function testAdminScraperEditActionRegistered(): void {
-		$this->assertTrue(elgg_action_exists('admin/scraper/edit'));
+		$this->assertTrue(\elgg_action_exists('admin/scraper/edit'));
 	}
 
 	/**
      * @return void
      */
     public function testAdminScraperRefetchActionRegistered(): void {
-		$this->assertTrue(elgg_action_exists('admin/scraper/refetch'));
+		$this->assertTrue(\elgg_action_exists('admin/scraper/refetch'));
 	}
 
 	/**
      * @return void
      */
     public function testAdminScraperClearActionRegistered(): void {
-		$this->assertTrue(elgg_action_exists('admin/scraper/clear'));
+		$this->assertTrue(\elgg_action_exists('admin/scraper/clear'));
 	}
 
 	/**
      * @return void
      */
     public function testAdminScraperTimestampImagesActionRegistered(): void {
-		$this->assertTrue(elgg_action_exists('admin/scraper/timestamp_images'));
+		$this->assertTrue(\elgg_action_exists('admin/scraper/timestamp_images'));
 	}
 
 	// === Routes ===
@@ -67,7 +67,7 @@ class BootstrapTest extends IntegrationTestCase {
      * @return void
      */
     public function testScraperCardRouteRegistered(): void {
-		$routes = _elgg_services()->routes->all();
+		$routes = \_elgg_services()->routes->all();
 		$this->assertArrayHasKey('scraper:card', $routes);
 	}
 
@@ -168,27 +168,27 @@ class BootstrapTest extends IntegrationTestCase {
      * @return void
      */
     public function testScraperCardViewExists(): void {
-		$this->assertTrue(elgg_view_exists('resources/scraper/card'));
+		$this->assertTrue(\elgg_view_exists('resources/scraper/card'));
 	}
 
 	/**
      * @return void
      */
     public function testScraperStylesheetViewExists(): void {
-		$this->assertTrue(elgg_view_exists('framework/scraper/stylesheet.css'));
+		$this->assertTrue(\elgg_view_exists('framework/scraper/stylesheet.css'));
 	}
 
 	/**
      * @return void
      */
     public function testScraperPlayerJsViewExists(): void {
-		$this->assertTrue(elgg_view_exists('framework/scraper/player.js'));
+		$this->assertTrue(\elgg_view_exists('framework/scraper/player.js'));
 	}
 
 	/**
      * @return void
      */
     public function testOutputCardViewExists(): void {
-		$this->assertTrue(elgg_view_exists('output/card'));
+		$this->assertTrue(\elgg_view_exists('output/card'));
 	}
 }

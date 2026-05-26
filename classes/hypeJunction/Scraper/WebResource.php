@@ -35,6 +35,6 @@ class WebResource extends \ArrayObject
      */
     public function meta($name)
     {
-        return elgg_extract($name, $this->metatags);
+        return \elgg_extract($name, $this->metatags);
     }
 }

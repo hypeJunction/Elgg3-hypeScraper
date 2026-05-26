@@ -19,7 +19,7 @@ class EmbedAction
     {
         $url = $request->getParam('url');
 
-        $output = elgg_view('embed/safe/player', [
+        $output = \elgg_view('embed/safe/player', [
             'url' => $url,
         ]);
 
@@ -27,6 +27,6 @@ class EmbedAction
             throw new BadRequestException();
         }
 
-        return elgg_ok_response($output);
+        return \elgg_ok_response($output);
     }
 }

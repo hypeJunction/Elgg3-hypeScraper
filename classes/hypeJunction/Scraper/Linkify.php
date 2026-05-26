@@ -112,11 +112,11 @@ class Linkify extends Extractor
         }
 
         $tag = str_replace('#', '', $matches[2]);
-        $uri = elgg_get_plugin_setting("hashtag_uri", 'hypeScraper', "search?search_type=tags&q=%s");
+        $uri = \elgg_get_plugin_setting("hashtag_uri", 'hypeScraper', "search?search_type=tags&q=%s");
         $href = sprintf($uri, $tag);
-        return $matches[1] . elgg_format_element('a', [
+        return $matches[1] . \elgg_format_element('a', [
             'class' => 'scraper-hashtag',
-            'href' => elgg_normalize_url($href),
+            'href' => \elgg_normalize_url($href),
             'data-qualifier' => 'hashtag',
         ], $matches[2]);
     }
@@ -135,12 +135,12 @@ class Linkify extends Extractor
         }
 
         $text = $matches[2];
-        if (elgg_get_plugin_setting('linkify_url_titles', 'hypeScraper', true)) {
+        if (\elgg_get_plugin_setting('linkify_url_titles', 'hypeScraper', true)) {
             $data = hypeapps_scrape($text, true);
             $text = (!empty($data['title'])) ? $data['title'] : $text;
         }
 
-        return $matches[1] . elgg_format_element('a', [
+        return $matches[1] . \elgg_format_element('a', [
             'class' => 'scraper-url',
             'href' => $matches[2],
             'data-qualifier' => 'url',
@@ -168,7 +168,7 @@ class Linkify extends Extractor
             return $matches[0];
         }
 
-        return $matches[1] . elgg_format_element('a', [
+        return $matches[1] . \elgg_format_element('a', [
             'class' => 'scraper-username',
             'href' => $user->getURL(),
             'data-qualifier' => 'username',
@@ -190,7 +190,7 @@ class Linkify extends Extractor
             return $matches[0];
         }
 
-        return $matches[1] . elgg_format_element('a', [
+        return $matches[1] . \elgg_format_element('a', [
             'class' => 'scraper-email',
             'href' => "mailto:{$matches[2]}",
             'data-qualifier' => 'email',
