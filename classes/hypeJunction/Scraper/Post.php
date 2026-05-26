@@ -20,7 +20,7 @@ class Post
 
         $entity->web_location = $url;
 
-        return elgg_trigger_event('update', 'object:web_location', $entity);
+        return \elgg_trigger_event('update', 'object:web_location', $entity);
     }
 
     /**

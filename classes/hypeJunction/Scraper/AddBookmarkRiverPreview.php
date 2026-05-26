@@ -13,13 +13,13 @@ class AddBookmarkRiverPreview
     public function __invoke(Event $event)
     {
 
-        if (!elgg_get_plugin_setting('bookmarks', 'hypescraper')) {
+        if (!\elgg_get_plugin_setting('bookmarks', 'hypescraper')) {
             return;
         }
 
         $return = $event->getValue();
 
-        $item = elgg_extract('item', $return);
+        $item = \elgg_extract('item', $return);
         if (!$item instanceof \ElggRiverItem) {
             return;
         }
@@ -33,14 +33,14 @@ class AddBookmarkRiverPreview
             return;
         }
 
-        $preview_type = elgg_get_plugin_setting('preview_type', 'hypescraper', 'card');
+        $preview_type = \elgg_get_plugin_setting('preview_type', 'hypescraper', 'card');
         if ($preview_type != 'card') {
-            $return['attachments'] = elgg_view('output/player', [
+            $return['attachments'] = \elgg_view('output/player', [
                 'href' => $object->address,
                 'fallback' => true,
             ]);
         } else {
-            $return['attachments'] = elgg_view('output/card', [
+            $return['attachments'] = \elgg_view('output/card', [
                 'href' => $object->address,
             ]);
         }

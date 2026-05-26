@@ -23,7 +23,7 @@ class HooksTest extends IntegrationTestCase {
 		if (!class_exists(\hypeJunction\Parser::class)) {
 			$this->markTestSkipped('hypeJunction\\Parser not available (hypeParser inactive)');
 		}
-		$result = elgg_trigger_event_results('format:src', 'embed', [], '');
+		$result = \elgg_trigger_event_results('format:src', 'embed', [], '');
 		$this->assertIsString($result);
 	}
 
@@ -34,7 +34,7 @@ class HooksTest extends IntegrationTestCase {
 		if (!class_exists(\hypeJunction\Parser::class)) {
 			$this->markTestSkipped('hypeJunction\\Parser not available (hypeParser inactive)');
 		}
-		$result = elgg_trigger_event_results('extract:meta', 'all', ['url' => ''], null);
+		$result = \elgg_trigger_event_results('extract:meta', 'all', ['url' => ''], null);
 		$this->assertNotNull($result === null ? 'ok' : $result);
 	}
 
@@ -42,7 +42,7 @@ class HooksTest extends IntegrationTestCase {
      * @return void
      */
     public function testExtractQualifiersEventWired(): void {
-		$result = elgg_trigger_event_results('extract:qualifiers', 'all', ['text' => ''], []);
+		$result = \elgg_trigger_event_results('extract:qualifiers', 'all', ['text' => ''], []);
 		$this->assertTrue(is_array($result) || $result === null);
 	}
 
@@ -50,7 +50,7 @@ class HooksTest extends IntegrationTestCase {
      * @return void
      */
     public function testPrepareHtmlEventWired(): void {
-		$result = elgg_trigger_event_results('prepare', 'html', ['text' => 'hello'], 'hello');
+		$result = \elgg_trigger_event_results('prepare', 'html', ['text' => 'hello'], 'hello');
 		$this->assertTrue(is_string($result) || is_array($result));
 	}
 
@@ -62,7 +62,7 @@ class HooksTest extends IntegrationTestCase {
 			$this->markTestSkipped('hypeJunction\\Fields\\Collection not available (hypePost inactive)');
 		}
 		$collection = new \hypeJunction\Fields\Collection();
-		$result = elgg_trigger_event_results('fields', 'object', [], $collection);
+		$result = \elgg_trigger_event_results('fields', 'object', [], $collection);
 		$this->assertNotNull($result);
 	}
 
@@ -70,7 +70,7 @@ class HooksTest extends IntegrationTestCase {
      * @return void
      */
     public function testParseFrameworkScraperEventWired(): void {
-		$result = elgg_trigger_event_results('parse', 'framework:scraper', ['url' => ''], ['url' => '']);
+		$result = \elgg_trigger_event_results('parse', 'framework:scraper', ['url' => ''], ['url' => '']);
 		$this->assertTrue(is_array($result) || is_string($result));
 	}
 
@@ -78,7 +78,7 @@ class HooksTest extends IntegrationTestCase {
      * @return void
      */
     public function testCardMenuEventWired(): void {
-		$result = elgg_trigger_event_results('register', 'menu:scraper:card', [], []);
+		$result = \elgg_trigger_event_results('register', 'menu:scraper:card', [], []);
 		$this->assertTrue(is_array($result) || $result === null);
 	}
 
@@ -86,7 +86,7 @@ class HooksTest extends IntegrationTestCase {
      * @return void
      */
     public function testPageMenuEventWired(): void {
-		$result = elgg_trigger_event_results('register', 'menu:page', [], []);
+		$result = \elgg_trigger_event_results('register', 'menu:page', [], []);
 		$this->assertTrue(is_array($result) || $result === null);
 	}
 }
