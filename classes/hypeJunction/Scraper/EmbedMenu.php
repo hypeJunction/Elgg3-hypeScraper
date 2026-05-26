@@ -18,7 +18,7 @@ class EmbedMenu {
 
 		$menu[] = \ElggMenuItem::factory([
 			'name' => 'player',
-			'text' => elgg_echo('embed:player'),
+			'text' => \elgg_echo('embed:player'),
 			'priority' => 500,
 			'data' => [
 				'view' => 'embed/tab/player',

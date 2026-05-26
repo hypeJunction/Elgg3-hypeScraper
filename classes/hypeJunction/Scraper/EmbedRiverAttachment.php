@@ -20,7 +20,7 @@ class EmbedRiverAttachment {
 			return null;
 		}
 
-		$item = elgg_extract('item', $vars);
+		$item = \elgg_extract('item', $vars);
 		if (!$item instanceof \ElggRiverItem) {
 			return null;
 		}
@@ -41,9 +41,9 @@ class EmbedRiverAttachment {
 		$matches = $svc->extract($description);
 
 		if (!empty($matches['player'][0])) {
-			$vars['attachments'] = elgg_format_element('div', [
+			$vars['attachments'] = \elgg_format_element('div', [
 				'class' => 'embed-player-listing-preview elgg-river-attachment',
-			], elgg_view('shortcodes/player', $matches['player'][0]));
+			], \elgg_view('shortcodes/player', $matches['player'][0]));
 		}
 
 		return $vars;

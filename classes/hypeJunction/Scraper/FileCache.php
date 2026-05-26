@@ -17,7 +17,7 @@ class FileCache implements Pool {
 
 	public function __construct() {
 		$this->cache = new Flintstone('scraper_cache', [
-			'dir' => elgg_get_config('dataroot'),
+			'dir' => \elgg_get_config('dataroot'),
 		]);
 	}
 

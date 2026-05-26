@@ -33,6 +33,6 @@ class WebResource extends \ArrayObject {
 	 * @return mixed
 	 */
 	public function meta($name) {
-		return elgg_extract($name, $this->metatags);
+		return \elgg_extract($name, $this->metatags);
 	}
 }

@@ -8,18 +8,18 @@ class AddBookmarkProfilePreview {
 
 	public function __invoke(Hook $hook) {
 
-		if (!elgg_get_plugin_setting('bookmarks', 'hypescraper')) {
+		if (!\elgg_get_plugin_setting('bookmarks', 'hypescraper')) {
 			return;
 		}
 
 		$return = $hook->getValue();
 
-		$entity = elgg_extract('entity', $return);
+		$entity = \elgg_extract('entity', $return);
 		if (!$entity instanceof \ElggObject || $entity->getSubtype() !== 'bookmarks') {
 			return;
 		}
 
-		$return['body'] .= elgg_view('output/player', [
+		$return['body'] .= \elgg_view('output/player', [
 			'href' => $entity->address,
 		]);
 

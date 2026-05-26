@@ -27,8 +27,8 @@ class HttpConfig {
 		$jar = new CookieJar();
 		$jar->setCookie(new SetCookie([
 			'Name' => 'Elgg',
-			'Value' => elgg_get_session()->getId(),
-			'Domain' => parse_url(elgg_get_site_url(), PHP_URL_HOST),
+			'Value' => \elgg_get_session()->getId(),
+			'Domain' => parse_url(\elgg_get_site_url(), PHP_URL_HOST),
 		]));
 
 		$config = [

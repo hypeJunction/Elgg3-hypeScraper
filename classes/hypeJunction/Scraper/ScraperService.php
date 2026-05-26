@@ -95,7 +95,7 @@ class ScraperService {
 	 */
 	public function get($url) {
 		if (!$this->parser->isValidUrl($url)) {
-			elgg_log(__METHOD__ . ' expects a valid URL: ' . $url);
+			\elgg_log(__METHOD__ . ' expects a valid URL: ' . $url);
 
 			return null;
 		}
@@ -151,10 +151,10 @@ class ScraperService {
 	 */
 	public function parse($url, $flush = false, $recurse = true) {
 
-		elgg_log("Attempting to parse URL: $url");
+		\elgg_log("Attempting to parse URL: $url");
 
 		if (!$this->parser->isValidUrl($url)) {
-			elgg_log("Invalid URL: $url");
+			\elgg_log("Invalid URL: $url");
 
 			return false;
 		}
@@ -171,7 +171,7 @@ class ScraperService {
 		try {
 			$response = $this->parser->request($url);
 		} catch (\Exception $ex) {
-			elgg_log($ex->getMessage(), 'ERROR');
+			\elgg_log($ex->getMessage(), 'ERROR');
 			$data = false;
 		}
 
@@ -181,8 +181,8 @@ class ScraperService {
 			return false;
 		}
 
-		$post_max_size = elgg_get_ini_setting_in_bytes('post_max_size');
-		$upload_max_filesize = elgg_get_ini_setting_in_bytes('upload_max_filesize');
+		$post_max_size = \elgg_get_ini_setting_in_bytes('post_max_size');
+		$upload_max_filesize = \elgg_get_ini_setting_in_bytes('upload_max_filesize');
 		$max_upload = $upload_max_filesize > $post_max_size ? $post_max_size : $upload_max_filesize;
 
 		$content_length = $response->getHeader('Content-Length');
@@ -202,7 +202,7 @@ class ScraperService {
 		} catch (\Exception $ex) {
 			// There is an issue with the DOM markup and we are unable to
 			// scrape the data. Giving up.
-			elgg_log($ex->getMessage(), 'ERROR');
+			\elgg_log($ex->getMessage(), 'ERROR');
 			$data = false;
 		}
 
@@ -212,7 +212,7 @@ class ScraperService {
 			return false;
 		}
 
-		$type = elgg_extract('type', $data);
+		$type = \elgg_extract('type', $data);
 
 		switch ($type) {
 			case 'photo' :
@@ -223,7 +223,7 @@ class ScraperService {
 					$data['height'] = $image->natural_height;
 					$data['filename'] = $image->getFilename();
 					$data['owner_guid'] = $image->owner_guid;
-					$data['thumbnail_url'] = elgg_get_inline_url($image);
+					$data['thumbnail_url'] = \elgg_get_inline_url($image);
 				}
 				break;
 
@@ -234,11 +234,11 @@ class ScraperService {
 				break;
 		}
 
-		$data = elgg_trigger_plugin_hook('parse', 'framework:scraper', [
+		$data = \elgg_trigger_plugin_hook('parse', 'framework:scraper', [
 			'url' => $url,
 		], $data);
 
-		elgg_log("URL data parsed: " . print_r($data, true));
+		\elgg_log("URL data parsed: " . print_r($data, true));
 
 		$this->save($url, $data);
 
@@ -293,7 +293,7 @@ class ScraperService {
 			foreach ($parse['assets'] as $asset) {
 				if (!empty($asset['filename'])) {
 					$file = new ElggFile();
-					$file->owner_guid = elgg_get_site_entity()->guid;
+					$file->owner_guid = \elgg_get_site_entity()->guid;
 					$file->setFilename($asset['filename']);
 					$file->delete();
 				}
@@ -345,7 +345,7 @@ class ScraperService {
 			return;
 		}
 
-		$site = elgg_get_site_entity();
+		$site = \elgg_get_site_entity();
 		$tmp = new \ElggFile();
 		$tmp->owner_guid = $site->guid;
 		$tmp->setFilename("scraper_cache/tmp/$basename.$ext");
@@ -362,8 +362,8 @@ class ScraperService {
 			return false;
 		}
 
-		$lower_threashold = elgg_get_plugin_setting('cache_thumb_size_lower_threshold', 'hypeScraper', 100);
-		$upper_threshold = elgg_get_plugin_setting('cache_thumb_size_upper_threshold', 'hypeScraper', 1500);
+		$lower_threashold = \elgg_get_plugin_setting('cache_thumb_size_lower_threshold', 'hypeScraper', 100);
+		$upper_threshold = \elgg_get_plugin_setting('cache_thumb_size_upper_threshold', 'hypeScraper', 1500);
 		$imagesize = getimagesize($tmp->getFilenameOnFilestore());
 		if (!$imagesize || $imagesize[0] < $lower_threashold || $imagesize[0] > $upper_threshold) {
 			$tmp->delete();
@@ -381,8 +381,8 @@ class ScraperService {
 		$image->open('write');
 		$image->close();
 
-		$size = elgg_get_plugin_setting('cache_thumb_size', 'hypeScraper', 500);
-		$thumb = elgg_save_resized_image($tmp->getFilenameOnFilestore(), $image->getFilenameOnFilestore(), [
+		$size = \elgg_get_plugin_setting('cache_thumb_size', 'hypeScraper', 500);
+		$thumb = \elgg_save_resized_image($tmp->getFilenameOnFilestore(), $image->getFilenameOnFilestore(), [
 			'w' => $size,
 			'h' => $size,
 			'upscale' => false,
@@ -408,14 +408,14 @@ class ScraperService {
 	 */
 	public function parseThumbs(array $data = []) {
 		$assets = [];
-		$thumbnails = (array) elgg_extract('thumbnails', $data, []);
-		$icons = (array) elgg_extract('icons', $data, []);
+		$thumbnails = (array) \elgg_extract('thumbnails', $data, []);
+		$icons = (array) \elgg_extract('icons', $data, []);
 
 		// Try 3 images and choose the one with highest dimensions
 		$thumbnails = array_filter(array_unique(array_merge($thumbnails, $icons)));
 		$thumbs_parsed = 0;
 		foreach ($thumbnails as $thumbnail) {
-			$thumbnail = elgg_normalize_url($thumbnail);
+			$thumbnail = \elgg_normalize_url($thumbnail);
 			$asset = $this->parse($thumbnail, false, false);
 
 			if ($asset) {
@@ -458,7 +458,7 @@ class ScraperService {
 		$requiredMemory2 = ceil($imginfo[0] * $imginfo[1] * ($imginfo['bits'] / 8) * $imginfo['channels'] * 2.5);
 		$requiredMemory = (int) max($requiredMemory1, $requiredMemory2);
 
-		$mem_avail = elgg_get_ini_setting_in_bytes('memory_limit');
+		$mem_avail = \elgg_get_ini_setting_in_bytes('memory_limit');
 		$mem_used = memory_get_usage();
 
 		$mem_avail = $mem_avail - $mem_used - 20971520; // 20 MB buffer, yeah arbitrary but necessary
@@ -495,12 +495,12 @@ class ScraperService {
 			return $domain;
 		};
 
-		$domains = elgg_get_plugin_setting('oembed_domains', 'hypeScraper', '');
+		$domains = \elgg_get_plugin_setting('oembed_domains', 'hypeScraper', '');
 		$domains = preg_split('/$\R?^/m', $domains);
 		$domains = array_filter($domains);
 
 		if (empty($domains)) {
-			$root = elgg_get_plugins_path();
+			$root = \elgg_get_plugins_path();
 			$domains = Includer::includeFile($root . '/hypeScraper/lib/whitelist.php');
 		}
 

@@ -14,8 +14,8 @@ class FilteroEmbedHtml {
 			return;
 		}
 
-		$url = parse_url(elgg_extract('url', $return, ''), PHP_URL_HOST);
-		$canonical_url = parse_url(elgg_extract('canonical', $return, ''), PHP_URL_HOST);
+		$url = parse_url(\elgg_extract('url', $return, ''), PHP_URL_HOST);
+		$canonical_url = parse_url(\elgg_extract('canonical', $return, ''), PHP_URL_HOST);
 
 		$domains = ScraperService::instance()->getoEmbedDomains();
 
