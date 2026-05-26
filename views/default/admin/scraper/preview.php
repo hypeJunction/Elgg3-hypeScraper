@@ -1,7 +1,7 @@
 <?php
 
 echo elgg_view_form('admin/scraper/preview', [
-	'action' => current_page_url(),
+	'action' => elgg_get_current_url(),
 	'method' => 'GET',
 	'disable_security' => true,
 ]);
