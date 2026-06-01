@@ -27,7 +27,7 @@ class Router {
 		}
 
 		$viewtype = array_shift($segments);
-		if (!$viewtype || !\elgg_is_registered_viewtype($viewtype)) {
+		if (!$viewtype || !_elgg_services()->views->isValidViewtype($viewtype)) {
 			$viewtype = 'default';
 		}
 
