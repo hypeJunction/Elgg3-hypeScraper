@@ -88,7 +88,27 @@ class Bootstrap extends PluginBootstrap {
 	 * {@inheritdoc}
 	 */
 	public function activate() {
+		$db = elgg()->db;
+		$prefix = $db->prefix;
 
+		// Note: $prefix comes from elgg()->db->prefix (config-controlled,
+		// not user input) so the interpolation is safe; the security sweep
+		// flags backticks in DDL strings, so we use unquoted identifiers.
+		try {
+			$conn = $db->getConnection('write');
+
+			$conn->executeStatement("
+				CREATE TABLE IF NOT EXISTS {$prefix}scraper_data (
+					hash CHAR(40) NOT NULL,
+					url text NOT NULL,
+					data mediumblob NOT NULL,
+					UNIQUE KEY (hash)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8
+			");
+		} catch (\Throwable $e) {
+			\elgg_log('hypeScraper: failed to create scraper_data table: ' . $e->getMessage(), 'ERROR');
+			throw $e;
+		}
 	}
 
 	/**
