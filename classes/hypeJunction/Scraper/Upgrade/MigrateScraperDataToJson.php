@@ -2,13 +2,13 @@
 
 namespace hypeJunction\Scraper\Upgrade;
 
-use Elgg\Upgrade\Batch;
+use Elgg\Upgrade\AsynchronousUpgrade;
 use Elgg\Upgrade\Result;
 
 /**
  * Re-encodes scraper_data rows from PHP serialize() to JSON (5.x migration).
  */
-class MigrateScraperDataToJson implements Batch
+class MigrateScraperDataToJson extends AsynchronousUpgrade
 {
     const IDENTIFIER = 'hypescraper_migrate_data_to_json';
     const VERSION = 2024010101;
