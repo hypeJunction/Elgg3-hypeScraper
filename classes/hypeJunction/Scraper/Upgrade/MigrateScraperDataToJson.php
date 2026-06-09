@@ -30,34 +30,39 @@ class MigrateScraperDataToJson extends AsynchronousUpgrade
 
     public function countItems(): int
     {
-        $rows = elgg()->db->getData("SELECT COUNT(*) AS cnt FROM {$this->getPrefix()}scraper_data WHERE data NOT LIKE '{%' AND data NOT LIKE '[%'");
-        return $rows[0]->cnt ?? 0;
+        $prefix = $this->getPrefix();
+        $row = elgg()->db->getConnection('read')->executeQuery(
+            "SELECT COUNT(*) AS cnt FROM {$prefix}scraper_data WHERE data NOT LIKE '{%' AND data NOT LIKE '[%'"
+        )->fetchAssociative();
+
+        return (int) ($row['cnt'] ?? 0);
     }
 
     public function run(Result $result, $offset): Result
     {
         $prefix = $this->getPrefix();
-        $rows = elgg()->db->getData(
+        $rows = elgg()->db->getConnection('read')->executeQuery(
             "SELECT url, data FROM {$prefix}scraper_data WHERE data NOT LIKE '{%' AND data NOT LIKE '[%' LIMIT 50"
-        );
+        )->fetchAllAssociative();
 
         if (empty($rows)) {
             $result->addSuccesses(0);
             return $result;
         }
 
+        $write = elgg()->db->getConnection('write');
+
         foreach ($rows as $row) {
-            $decoded = @unserialize($row->data, ['allowed_classes' => false]);
-            if ($decoded === false && $row->data !== serialize(false)) {
+            $decoded = @unserialize($row['data'], ['allowed_classes' => false]);
+            if ($decoded === false && $row['data'] !== serialize(false)) {
                 $result->addFailure();
                 continue;
             }
 
             $json = json_encode($decoded);
-            elgg()->db->updateData(
+            $write->executeStatement(
                 "UPDATE {$prefix}scraper_data SET data = ? WHERE url = ?",
-                false,
-                [$json, $row->url]
+                [$json, $row['url']]
             );
             $result->addSuccesses(1);
         }

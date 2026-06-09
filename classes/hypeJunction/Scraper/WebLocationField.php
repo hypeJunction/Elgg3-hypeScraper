@@ -19,7 +19,7 @@ class WebLocationField extends Field
             'entity' => $entity,
         ];
 
-        $enabled = elgg()->hooks->trigger(
+        $enabled = elgg()->events->triggerResults(
             'uses:web_location',
             "$entity->type:$entity->subtype",
             $params,

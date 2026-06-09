@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Scraper;
 
-use Elgg\PluginHooksService;
+use Elgg\EventsService;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Cookie\SetCookie;
 
@@ -14,9 +14,9 @@ class HttpConfig
     /**
      * Constructor
      *
-     * @param PluginHooksService $hooks Hook service
+     * @param EventsService $hooks Hook service
      */
-    public function __construct(PluginHooksService $hooks)
+    public function __construct(EventsService $hooks)
     {
         $this->hooks = $hooks;
     }
@@ -54,6 +54,6 @@ class HttpConfig
             'cookies' => $jar,
         ];
 
-        return $this->hooks->trigger('http:config', 'framework:scraper', null, $config);
+        return $this->hooks->triggerResults('http:config', 'framework:scraper', [], $config);
     }
 }

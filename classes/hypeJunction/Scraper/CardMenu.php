@@ -13,17 +13,16 @@ class CardMenu
      */
     public function __invoke(Event $event)
     {
+        $menu = $event->getValue();
 
         if (!elgg_is_admin_logged_in()) {
-            return null;
+            return $menu;
         }
 
         $href = $event->getParam('href');
         if (!$href) {
-            return null;
+            return $menu;
         }
-
-        $menu = $event->getValue();
 
         $menu[] = ElggMenuItem::factory([
             'name' => 'edit',

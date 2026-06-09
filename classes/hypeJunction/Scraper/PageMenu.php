@@ -14,10 +14,9 @@ class PageMenu
     {
 
         $menu = $event->getValue();
-        /* @var $menu \Elgg\Menu\MenuItems */
 
         if (!elgg_in_context('admin')) {
-            return null;
+            return $menu;
         }
 
         // Admin
