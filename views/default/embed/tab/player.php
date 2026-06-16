@@ -3,7 +3,5 @@
 echo elgg_view_form('embed/player', [
 	'class' => 'elgg-form-embed-player',
 		], $vars);
-?>
-<script>
-	require(['embed/tab/player']);
-</script>
+
+elgg_import_esm('embed/tab/player');
