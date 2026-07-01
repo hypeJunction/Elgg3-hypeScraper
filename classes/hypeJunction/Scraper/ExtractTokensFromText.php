@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Scraper;
 
-use Elgg\Hook;
+use Elgg\Event;
 
 class ExtractTokensFromText
 {
@@ -11,11 +11,11 @@ class ExtractTokensFromText
      *
      * @elgg_plugin_hook extract:qualifiers scraper
      *
-     * @param Hook $hook Hook
+     * @param Event $hook Event
      *
      * @return array
      */
-    public static function extractTokens(Hook $hook)
+    public static function extractTokens(Event $hook)
     {
         $text = $hook->getParam('source');
 

@@ -182,7 +182,7 @@ class BootstrapTest extends IntegrationTestCase {
      * @return void
      */
     public function testScraperPlayerJsViewExists(): void {
-		$this->assertTrue(elgg_view_exists('framework/scraper/player.js'));
+		$this->assertTrue(elgg_view_exists('framework/scraper/player.mjs'));
 	}
 
 	/**

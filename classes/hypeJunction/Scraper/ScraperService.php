@@ -188,7 +188,7 @@ class ScraperService
         try {
             $response = $this->parser->request($url);
         } catch (\Exception $ex) {
-            elgg_log($ex->getMessage(), 'ERROR');
+            elgg_log($ex->getMessage(), 'error');
             $data = false;
         }
 
@@ -219,7 +219,7 @@ class ScraperService
         } catch (\Exception $ex) {
             // There is an issue with the DOM markup and we are unable to
             // scrape the data. Giving up.
-            elgg_log($ex->getMessage(), 'ERROR');
+            elgg_log($ex->getMessage(), 'error');
             $data = false;
         }
 

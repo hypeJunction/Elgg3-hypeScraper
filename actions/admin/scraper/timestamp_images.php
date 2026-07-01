@@ -6,14 +6,12 @@ $getter = function($options) {
 	$limit = (int) elgg_extract('limit', $options, 10);
 	$offset = (int) elgg_extract('offset', $options, 0);
 
-	$dbprefix = elgg_get_config('dbprefix');
+	$qb = \Elgg\Database\Select::fromTable('scraper_data');
+	$qb->select('*')
+		->setMaxResults($limit)
+		->setFirstResult($offset);
 
-	$query = "
-		SELECT * FROM {$dbprefix}scraper_data
-		LIMIT $offset, $limit 
-	";
-
-	return elgg()->db->getData($query);
+	return elgg()->db->getData($qb);
 };
 
 $svc = \hypeJunction\Scraper\ScraperService::instance();
