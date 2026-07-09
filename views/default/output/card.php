@@ -58,7 +58,7 @@ if (($meta->type == 'image' || $meta->type == 'photo') && $icon_url) {
 		'class' => 'scraper-card-link',
 	]);
 	$body .= elgg_view('output/longtext', [
-		'value' => elgg_get_excerpt($meta->description),
+		'value' => elgg_get_excerpt((string) ($meta->description ?? '')),
 		'class' => 'scraper-card-description'
 	]);
 
