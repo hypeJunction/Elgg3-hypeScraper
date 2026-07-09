@@ -91,6 +91,17 @@ class Bootstrap extends PluginBootstrap
      */
     public function activate()
     {
+        // Idempotent schema setup ported from the removed 2.x root activate.php
+        // (which called the removed run_sql_script() against install/mysql.sql).
+        $prefix = elgg()->db->prefix;
+        elgg()->db->getConnection('write')->executeStatement(
+            "CREATE TABLE IF NOT EXISTS `{$prefix}scraper_data` (
+                `hash` CHAR(40) NOT NULL,
+                `url` text NOT NULL,
+                `data` mediumblob NOT NULL,
+                UNIQUE KEY (`hash`)
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8"
+        );
     }
 
     /**
