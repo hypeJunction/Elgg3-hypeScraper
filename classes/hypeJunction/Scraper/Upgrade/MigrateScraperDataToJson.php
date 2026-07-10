@@ -55,7 +55,19 @@ class MigrateScraperDataToJson extends AsynchronousUpgrade
         foreach ($rows as $row) {
             $decoded = @unserialize($row['data'], ['allowed_classes' => false]);
             if ($decoded === false && $row['data'] !== serialize(false)) {
-                $result->addFailure();
+                // Neither JSON nor valid serialized data. Two bugs lived here:
+                // Result::addFailure() does not exist (it is addFailures()), so this
+                // threw a fatal; and even if it had not, countItems() counts rows that
+                // are not yet JSON, so a row that can never BECOME JSON would keep the
+                // count above zero and the batch would loop forever.
+                //
+                // elgg_scraper_data is a regenerable link-preview cache. Drop the row.
+                $write->executeStatement(
+                    "DELETE FROM {$prefix}scraper_data WHERE url = ?",
+                    [$row['url']]
+                );
+                elgg_log("hypeScraper: dropped unparseable scraper_data row url={$row['url']}", \Psr\Log\LogLevel::NOTICE);
+                $result->addSuccesses();
                 continue;
             }
 
