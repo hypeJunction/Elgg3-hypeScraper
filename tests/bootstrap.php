@@ -33,7 +33,9 @@ if (function_exists('_elgg_services')) {
         // System cache may be stale (built before this plugin's views were registered).
         // Re-register views and persist the updated location index so that each
         // test's setUp() -> boot->boot() -> configureFromCache() loads correct views.
-        _elgg_services()->views->registerPluginViews($boot_plugin->getPath());
+        // Elgg 7 removed ViewsService::registerPluginViews(). ElggPlugin itself now
+        // calls registerViewsFromPath($this->getPath()) — the exact equivalent.
+        _elgg_services()->views->registerViewsFromPath($boot_plugin->getPath());
         _elgg_services()->views->cacheConfiguration(_elgg_services()->serverCache);
         try { $boot_plugin->init(); } catch (\Throwable $e) {}
     }
