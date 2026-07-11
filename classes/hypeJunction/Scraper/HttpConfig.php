@@ -50,7 +50,6 @@ class HttpConfig
             ],
             'timeout' => 5,
             'connect_timeout' => 5,
-            'verify' => false,
             'cookies' => $jar,
         ];
 

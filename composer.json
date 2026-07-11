@@ -30,7 +30,7 @@
         "elgg/elgg": "^7.0",
         "composer/installers": "^2.0",
         "hypejunction/hypefields": "*",
-        "hypejunction/http-parser": "dev-master"
+        "hypejunction/http-parser": "^0.2"
     },
     "config": {
         "allow-plugins": {
