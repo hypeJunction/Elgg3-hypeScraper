@@ -192,7 +192,7 @@ class ScraperService
             $data = false;
         }
 
-        if (!$response instanceof \GuzzleHttp\Psr7\Response || $response->getStatusCode() != 200) {
+        if (!$response instanceof \Psr\Http\Message\ResponseInterface || $response->getStatusCode() != 200) {
             $this->save($url, false);
 
             return false;
